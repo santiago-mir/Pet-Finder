@@ -13,7 +13,13 @@ class Home extends HTMLElement {
   }
   render() {
     this.innerHTML = `
-    <button class="button">Soy la home</button>
+    <custom-header></custom-header>
+  
+    <div><h1>Contenido de la pagina</h1></div>
+
+    <button class="button">Dar mi Ubicacion Actual </button>
+    <div></div>
+    <button class="button">Como funciona Pet Finder?</button>
     `;
     this.addListeners();
   }
