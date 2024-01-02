@@ -19,9 +19,9 @@ class Home extends HTMLElement {
     <img src="${petsImgsURL}"/>
     <h1 class="title">Pet Finder App</h1>
     <p class="text">Encontrá y reportá mascotas perdidas cerca de tu ubicación</p>
-    <button class="button">Dar mi Ubicacion Actual </button>
+    <custom-button color="#5A8FEC">Dar mi Ubicacion Actual </custom-button>
     <div></div>
-    <button class="button">Como funciona Pet Finder?</button>
+    <custom-button color="#00A884">Como funciona Pet Finder?</custom-button>
     </div>
     `;
     this.addListeners();
