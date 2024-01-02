@@ -12,14 +12,17 @@ class Home extends HTMLElement {
     });
   }
   render() {
+    const petsImgsURL = require("url:../../assets/images.png");
     this.innerHTML = `
     <custom-header></custom-header>
-  
-    <div><h1>Contenido de la pagina</h1></div>
-
+    <div class="main-container">
+    <img src="${petsImgsURL}"/>
+    <h1 class="title">Pet Finder App</h1>
+    <p class="text">Encontrá y reportá mascotas perdidas cerca de tu ubicación</p>
     <button class="button">Dar mi Ubicacion Actual </button>
     <div></div>
     <button class="button">Como funciona Pet Finder?</button>
+    </div>
     `;
     this.addListeners();
   }

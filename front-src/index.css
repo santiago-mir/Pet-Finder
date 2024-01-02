@@ -1,0 +1,34 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: #c8f2ff;
+}
+
+.main-container {
+  max-width: 500px;
+  margin: 0 auto;
+  height: 100vh;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.title,
+.text {
+  font-family: "Poppins", sans-serif;
+  text-align: center;
+}
+.title {
+  font-weight: 700;
+  color: #eb6372;
+}
+
+.text {
+  font-weight: 400;
+}

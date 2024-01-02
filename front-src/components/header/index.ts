@@ -11,16 +11,20 @@ class CustomHeader extends HTMLElement {
     const headerEl = document.createElement("header");
     const style = document.createElement("style");
     const imgURL = require("url:../../assets/menu.png");
+    const mapsURL = require("url:../../assets/maps.png");
     style.innerHTML = `
      .header{
         height: 85px;
         min-width: 330px;
-        background-color: grey;
+        background-color: #c1c1c1;
+        display:flex;
+        justify-content: space-between;
+        padding: 10px;
      }
     `;
     headerEl.innerHTML = `
+    <img src="${mapsURL}">
     <img src="${imgURL}"  />
-    <div> soy otro icono</div>
     `;
 
     this.shadow.appendChild(style);
