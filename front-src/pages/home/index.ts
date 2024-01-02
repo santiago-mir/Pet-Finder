@@ -6,9 +6,9 @@ class Home extends HTMLElement {
     this.render();
   }
   addListeners() {
-    const buttonEl = this.querySelector(".button");
+    const buttonEl = this.querySelector(".location");
     buttonEl?.addEventListener("click", () => {
-      Router.go("/login");
+      console.log("hola");
     });
   }
   render() {
@@ -19,7 +19,7 @@ class Home extends HTMLElement {
     <img src="${petsImgsURL}"/>
     <h1 class="title">Pet Finder App</h1>
     <p class="text">Encontrá y reportá mascotas perdidas cerca de tu ubicación</p>
-    <custom-button color="#5A8FEC">Dar mi Ubicacion Actual </custom-button>
+    <custom-button class="location" color="#5A8FEC">Dar mi Ubicacion Actual </custom-button>
     <div></div>
     <custom-button color="#00A884">Como funciona Pet Finder?</custom-button>
     </div>
