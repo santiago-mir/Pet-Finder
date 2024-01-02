@@ -1,16 +1,17 @@
 {
-  "name": "mvc",
+  "name": "pet-finder",
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "dev:back": "nodemon --watch ./back/index.ts --exec ts-node ./back/index.ts",
-    "dev:front": "parcel ./front/index.html",
+    "dev:back": "nodemon --watch ./back-src/index.ts --exec ts-node ./back-src/index.ts",
+    "dev:front": "parcel ./front-src/index.html",
     "build:back": "tsc",
-    "build:front": "parcel build ./front/index.html",
+    "build:front": "parcel build ./front-src/index.html",
     "build": "npm run build:back && npm run build:front",
     "start": "node ./back-dist/index.js"
   },
   "dependencies": {
+    "@vaadin/router": "^1.7.5",
     "cloudinary": "^1.41.1",
     "cors": "^2.8.5",
     "express": "^4.18.2",

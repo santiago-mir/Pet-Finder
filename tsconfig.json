@@ -6,5 +6,5 @@
     "resolveJsonModule": true,
     "outDir": "back-dist"
   },
-  "include": ["./back/**/*.ts"]
+  "include": ["./back-src/**/*.ts"]
 }
