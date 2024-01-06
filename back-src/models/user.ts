@@ -4,8 +4,9 @@ import { sequelize } from "../db";
 export class User extends Model {}
 User.init(
   {
-    fullName: { type: DataTypes.STRING },
-    email: { type: DataTypes.STRING },
+    firstName: { type: DataTypes.STRING, allowNull: false },
+    email: { type: DataTypes.STRING, allowNull: false },
+    city: { type: DataTypes.STRING },
   },
   {
     sequelize,
