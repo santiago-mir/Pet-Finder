@@ -5,7 +5,7 @@ export class Report extends Model {}
 Report.init(
   {
     reporterName: { type: DataTypes.STRING, allowNull: false },
-    reporterPhone: { type: DataTypes.NUMBER, allowNull: false },
+    reporterPhone: { type: DataTypes.INTEGER, allowNull: false },
     description: { type: DataTypes.TEXT, allowNull: false },
     user_id: { type: DataTypes.INTEGER, allowNull: false },
   },

@@ -6,9 +6,12 @@ import * as cors from "cors";
 import * as path from "path";
 import * as crypto from "crypto";
 import * as jwt from "jsonwebtoken";
+import { authMiddleware } from "./middleware";
 const port = 3002;
+const SECRET_JWT = process.env.SECRET;
 const app = express();
 app.use(express.json());
+
 function getSHA256ofString(text) {
   return crypto.createHash("sha256").update(text).digest("hex");
 }
@@ -20,7 +23,7 @@ app.post("/auth", async (req, res) => {
     // crea o encuentra al user en la DB
     where: { email: email },
     defaults: {
-      name,
+      firstName: name,
       email,
     },
   });
@@ -35,6 +38,23 @@ app.post("/auth", async (req, res) => {
   });
   console.log({ auth, authCreated });
   res.json({ user, auth });
+});
+
+app.post("/auth/token", async (req, res) => {
+  const { email, password } = req.body;
+  const hashPass = getSHA256ofString(password);
+  const auth = await Auth.findOne({
+    where: {
+      email,
+      password: hashPass,
+    },
+  });
+  if (auth) {
+    const token = jwt.sign({ id: auth.get("user_id") }, SECRET_JWT);
+    res.json({ token });
+  } else {
+    res.status(404).json({ error: "email o password invalido" });
+  }
 });
 
 app.listen(process.env.PORT, () => console.log("escuchando puerto" + port));

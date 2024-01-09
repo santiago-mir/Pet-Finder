@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "sync": "ts-node ./back-src/db/sync.ts",
+    "sync": "ts-node ./back-src/sync.ts",
     "dev:back": "nodemon --watch ./back-src/index.ts --exec ts-node ./back-src/index.ts",
     "dev:front": "parcel ./front-src/index.html",
     "build:back": "tsc",
