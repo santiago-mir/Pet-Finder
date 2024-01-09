@@ -1,10 +1,11 @@
 import * as jwt from "jsonwebtoken";
 import * as crypto from "crypto";
+const JWT_SECRET = process.env.SECRET;
 
-function authMiddleware(req, res, next, SECRET) {
+function authMiddleware(req, res, next) {
   const token = req.headers.authorization.split(" ")[1];
   try {
-    const data = jwt.verify(token, SECRET);
+    const data = jwt.verify(token, JWT_SECRET);
     req["._user"] = data;
     next();
   } catch (error) {

@@ -2,8 +2,7 @@ import { Auth, User } from "../models/models";
 class UserController {
   public static async createUser(userName: string, email: string) {
     if (!userName || !email) {
-      console.log(userName, email);
-      throw new Error("nombre o email invalidos");
+      throw new Error("userController: nombre o email invalidos");
     } else {
       const newUser = await User.findOrCreate({
         // crea o encuentra al user en la DB
@@ -14,6 +13,25 @@ class UserController {
         },
       });
       return newUser;
+    }
+  }
+  public static async updateUserData(
+    userId: number,
+    userName: string,
+    city: string
+  ) {
+    if (!userName || !city) {
+      throw new Error("userController: name o city invalidos");
+    } else {
+      const updatedUser = await User.update(
+        { firstName: userName, city },
+        {
+          where: {
+            id: userId,
+          },
+        }
+      );
+      return updatedUser;
     }
   }
 }

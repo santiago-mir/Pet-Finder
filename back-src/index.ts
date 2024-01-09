@@ -36,4 +36,11 @@ app.post("/auth/token", async (req, res) => {
   }
 });
 
+app.put("/menu/update-data", authMiddleware, async (req, res) => {
+  const { name, city } = req.body;
+  const userId = req["._user"].id;
+  const updatedUser = await UserController.updateUserData(userId, name, city);
+  res.json(updatedUser);
+});
+
 app.listen(process.env.PORT, () => console.log("escuchando puerto" + port));
