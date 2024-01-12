@@ -1,4 +1,4 @@
-import { Auth, User } from "../models/models";
+import { User } from "../models/models";
 class UserController {
   public static async createUser(userName: string, email: string) {
     if (!userName || !email) {

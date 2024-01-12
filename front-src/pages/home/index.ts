@@ -22,6 +22,8 @@ class Home extends HTMLElement {
     <custom-button class="location" color="#5A8FEC">Dar mi Ubicacion Actual </custom-button>
     <div></div>
     <custom-button color="#00A884">Como funciona Pet Finder?</custom-button>
+    <div></div>
+    <custom-button color="#5A8FEC">Inicia Sesion</custom-button>
     </div>
     `;
     this.addListeners();

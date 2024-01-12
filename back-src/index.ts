@@ -42,5 +42,11 @@ app.put("/menu/update-data", authMiddleware, async (req, res) => {
   const updatedUser = await UserController.updateUserData(userId, name, city);
   res.json(updatedUser);
 });
+app.use(express.static(path.join(__dirname, "../dist")));
+
+app.get("*", (req, res) => {
+  const route = path.resolve(__dirname, "../dist/index.html");
+  res.sendFile(route);
+});
 
 app.listen(process.env.PORT, () => console.log("escuchando puerto" + port));
