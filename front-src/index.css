@@ -19,14 +19,50 @@ body {
   gap: 10px;
 }
 
+.login-container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  align-items: center;
+  height: 90vh;
+  justify-content: space-evenly;
+  max-width: 400px;
+}
+
 .title,
 .text {
   font-family: "Poppins", sans-serif;
   text-align: center;
 }
+
+.form {
+  display: grid;
+  gap: 20px;
+}
+
+.input {
+  margin-top: 5px;
+  display: block;
+  width: 100%;
+  border: solid;
+  border-radius: 15px;
+  height: 30px;
+}
+
 .title {
   font-weight: 700;
   color: #eb6372;
+}
+
+.button {
+  height: 60px;
+  max-width: 500px;
+  min-width: 300px;
+  border: none;
+  border-radius: 10px;
+  font-family: "POPPINS";
+  font-weight: 700;
+  background-color: #5a8fec;
 }
 
 .text {

@@ -8,9 +8,10 @@ import * as jwt from "jsonwebtoken";
 import { authMiddleware } from "./utilities";
 import { AuthController } from "./controllers/auth-controller";
 import { UserController } from "./controllers/user-controller";
-const port = 3002;
+const port = process.env.BACK_PORT;
 const SECRET_JWT = process.env.SECRET;
 const app = express();
+app.use(cors());
 app.use(express.json());
 
 // sign-up
@@ -49,4 +50,4 @@ app.get("*", (req, res) => {
   res.sendFile(route);
 });
 
-app.listen(process.env.PORT, () => console.log("escuchando puerto" + port));
+app.listen(port, () => console.log("escuchando puerto" + port));
