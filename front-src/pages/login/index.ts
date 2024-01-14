@@ -29,8 +29,9 @@ class Login extends HTMLElement {
     Contraseña
     <input class="input" name="password" type="text" />
     </label>
-    <button class="button">Soy El login</button>
+    <button class="button">Inicia sesion</button>
     </form>
+    <p>¿Aun no tenes cuenta? <a href="./signup">Registrate</a> </p>
     </div>
     `;
     this.addListeners();
