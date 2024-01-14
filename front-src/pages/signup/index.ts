@@ -5,7 +5,19 @@ class Signup extends HTMLElement {
   connectedCallback() {
     this.render();
   }
-  addListeners() {}
+  addListeners() {
+    const formEl = this.querySelector(".form");
+    formEl?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      let target = event.target as any;
+      state.signUpUser(
+        target.name.value,
+        target.email.value,
+        target.password.value,
+        target.confirmation.value
+      );
+    });
+  }
   render() {
     this.innerHTML = `
     <custom-header></custom-header>
@@ -13,6 +25,10 @@ class Signup extends HTMLElement {
     <h1>Registrate</h1>
     <p>Ingresa los siguientes datos para realizar el registro</p>
     <form class="form">
+    <label class="label">
+    Nombre
+    <input class="input" name="name" type="text" />
+    </label>
     <label class="label">
     Email
     <input class="input" name="email" type="email" />
@@ -23,7 +39,7 @@ class Signup extends HTMLElement {
     </label>
     <label class="label">
     Confirmar contraseña
-    <input class="input" name="confirm-password" type="text" />
+    <input class="input" name="confirmation" type="text" />
     </label>
     <button class="button">Registrarme</button>
     </form>

@@ -17,11 +17,16 @@ app.use(express.json());
 // sign-up
 
 app.post("/auth", async (req, res) => {
+  const { password, confirmPassword } = req.body;
   try {
-    const { name, email, password } = req.body;
-    const [user, userCreated] = await UserController.createUser(name, email);
-    const auth = await AuthController.createAuth(user, email, password);
-    res.json({ user, auth });
+    const { name, email, password, confirmPassword } = req.body;
+    if (password != confirmPassword) {
+      res.status(400).json({ error: "las contraseñas no coinciden" });
+    } else {
+      const [user, userCreated] = await UserController.createUser(name, email);
+      const auth = await AuthController.createAuth(user, email, password);
+      res.json({ user, auth });
+    }
   } catch (error) {
     res.status(400).json({ error });
   }

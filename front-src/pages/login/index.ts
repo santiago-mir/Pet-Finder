@@ -10,7 +10,7 @@ class Login extends HTMLElement {
     formEl?.addEventListener("submit", (event) => {
       event.preventDefault();
       let target = event.target as any;
-      state.signUpUser(target.email.value, target.password.value);
+      state.signInUser(target.email.value, target.password.value);
     });
   }
   render() {

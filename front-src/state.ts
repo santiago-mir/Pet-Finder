@@ -15,7 +15,7 @@ const state = {
   suscribe(callback: (any) => any) {
     this.listeners.push(callback);
   },
-  signUpUser(email: string, password: string) {
+  signInUser(email: string, password: string) {
     fetch(API_BASE_URL + "/auth/token", {
       method: "POST",
       headers: {
@@ -24,6 +24,31 @@ const state = {
       body: JSON.stringify({
         email,
         password,
+      }),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        console.log(res);
+      });
+  },
+  signUpUser(
+    name: string,
+    email: string,
+    password: string,
+    confirmPassword: string
+  ) {
+    fetch(API_BASE_URL + "/auth", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        password,
+        confirmPassword,
       }),
     })
       .then((res) => {
