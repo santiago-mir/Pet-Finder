@@ -5,5 +5,6 @@ router.setRoutes([
   { path: "/login", component: "login-page" },
   { path: "/signup", component: "signup-page" },
   { path: "/instructions", component: "instructions-page" },
+  { path: "/lost-pets", component: "lost-pets-page" },
   { path: "(.*)", redirect: "/" },
 ]);
