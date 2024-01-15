@@ -13,7 +13,6 @@ const SECRET_JWT = process.env.SECRET;
 const app = express();
 app.use(cors());
 app.use(express.json());
-
 // sign-up
 
 app.post("/auth", async (req, res) => {
@@ -25,7 +24,7 @@ app.post("/auth", async (req, res) => {
     } else {
       const [user, userCreated] = await UserController.createUser(name, email);
       const auth = await AuthController.createAuth(user, email, password);
-      res.json({ user, auth });
+      res.json(user);
     }
   } catch (error) {
     res.status(400).json({ error });

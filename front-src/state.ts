@@ -1,7 +1,13 @@
 const API_BASE_URL = process.env.API_BASE_URL;
 
 const state = {
-  data: {},
+  data: {
+    userData: {
+      name: "",
+      location: "",
+      email: "",
+    },
+  },
   listeners: [],
   getState() {
     return this.data;
