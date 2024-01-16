@@ -11,6 +11,9 @@ class Login extends HTMLElement {
       event.preventDefault();
       let target = event.target as any;
       state.signInUser(target.email.value, target.password.value);
+      state.suscribe(() => {
+        Router.go("/home");
+      });
     });
   }
   render() {

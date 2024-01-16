@@ -5,7 +5,33 @@ class Home extends HTMLElement {
   connectedCallback() {
     this.render();
   }
+  getPetsURL() {
+    const petsImgsURL = require("url:../../assets/images.png");
+    return petsImgsURL;
+  }
+  addUpdatedListeners() {
+    // location button
+    const locationButtonEl = this.querySelector(".location");
+    locationButtonEl?.addEventListener("click", (event) => {
+      if (!navigator.geolocation) {
+        console.log("hubo un error");
+      } else {
+        navigator.geolocation.getCurrentPosition(this.success);
+        state.suscribe(() => {
+          Router.go("/lost-pets");
+        });
+      }
+    });
+    // instructions button
+    const reportButton = this.querySelector(".report");
+    reportButton?.addEventListener("click", (event) => {});
+  }
   addListeners() {
+    if (state.getToken()) {
+      this.uptadePage();
+    } else {
+      console.log("el token no esta activo");
+    }
     // login button
     const logInButtonEl = this.querySelector(".login");
     logInButtonEl?.addEventListener("click", () => {
@@ -35,12 +61,28 @@ class Home extends HTMLElement {
     const lng = position.coords.longitude;
     state.updateUserLocation(lat, lng);
   }
-  render() {
-    const petsImgsURL = require("url:../../assets/images.png");
+  uptadePage() {
     this.innerHTML = `
     <custom-header></custom-header>
     <div class="main-container">
-    <img src="${petsImgsURL}"/>
+    <img src="${this.getPetsURL()}"/>
+    <h1 class="title">Bienvenido ${state.getUserName()}</h1>
+    <h2 class="title">Pet Finder App</h2>
+    <p class="text">Encontrá y reportá mascotas perdidas cerca de tu ubicación</p>
+    <button class="location button">Dar mi Ubicacion Actual </button>
+    <div></div>
+    <button class="report button">Reportar una mascota perdida</button>
+    <div></div>
+    <button class="logout button">Cerrar sesion</button>
+    </div>
+    `;
+    this.addUpdatedListeners();
+  }
+  render() {
+    this.innerHTML = `
+    <custom-header></custom-header>
+    <div class="main-container">
+    <img src="${this.getPetsURL()}"/>
     <h1 class="title">Pet Finder App</h1>
     <p class="text">Encontrá y reportá mascotas perdidas cerca de tu ubicación</p>
     <button class="location button">Dar mi Ubicacion Actual </button>

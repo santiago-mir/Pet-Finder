@@ -9,6 +9,7 @@ const state = {
         lng: "",
       },
       email: "",
+      token: "",
     },
   },
   listeners: [],
@@ -31,6 +32,18 @@ const state = {
     currentState.userData._geoloc.lng = lng;
     this.setState(currentState);
   },
+  updateUserData(name: string, email: string, city?: string, token?: string) {
+    const currentState = this.getState();
+    currentState.userData.name = name;
+    currentState.userData.email = email;
+    if (city) {
+      currentState.userData.city = city;
+    }
+    if (token) {
+      currentState.userData.token = token;
+    }
+    this.setState(currentState);
+  },
   signInUser(email: string, password: string) {
     fetch(API_BASE_URL + "/auth/token", {
       method: "POST",
@@ -46,7 +59,12 @@ const state = {
         return res.json();
       })
       .then((res) => {
-        console.log(res);
+        state.updateUserData(
+          res.user.firstName,
+          res.user.email,
+          res.user.city,
+          res.token
+        );
       });
   },
   signUpUser(
@@ -73,6 +91,14 @@ const state = {
       .then((res) => {
         console.log(res);
       });
+  },
+  getToken() {
+    const currentToken = this.getState().userData.token;
+    return currentToken;
+  },
+  getUserName() {
+    const currentName = this.getState().userData.name;
+    return currentName;
   },
 };
 

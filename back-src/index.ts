@@ -34,8 +34,9 @@ app.post("/auth/token", async (req, res) => {
   const { email, password } = req.body;
   const auth = await AuthController.getToken(email, password);
   if (auth) {
+    const user = await UserController.getOneUser(auth["id"]);
     const token = jwt.sign({ id: auth.get("user_id") }, SECRET_JWT);
-    res.json({ token });
+    res.json({ user, token });
   } else {
     res.status(404).json({ error: "email o password incorrecto" });
   }

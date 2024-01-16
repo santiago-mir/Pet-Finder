@@ -1,3 +1,4 @@
+import { where } from "sequelize";
 import { User } from "../models/models";
 class UserController {
   public static async createUser(userName: string, email: string) {
@@ -32,6 +33,14 @@ class UserController {
         }
       );
       return updatedUser;
+    }
+  }
+  public static async getOneUser(userId: string) {
+    if (!userId) {
+      throw new Error("userController: userId invalido o incorrecto");
+    } else {
+      const user = await User.findByPk(userId);
+      return user;
     }
   }
 }
