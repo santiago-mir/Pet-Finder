@@ -1,11 +1,19 @@
-import { state } from "../../state.ts";
 import { Router } from "@vaadin/router";
 
 class UserData extends HTMLElement {
   connectedCallback() {
     this.render();
   }
-  addListeners() {}
+  addListeners() {
+    const updateDataButton = this.querySelector(".update-data");
+    updateDataButton?.addEventListener("click", (e) => {
+      Router.go("/update-data");
+    });
+    const updatePasswordButton = this.querySelector(".update-password");
+    updatePasswordButton?.addEventListener("click", (e) => {
+      Router.go("/update-password");
+    });
+  }
 
   render() {
     this.innerHTML = `
