@@ -4,7 +4,10 @@ const state = {
   data: {
     userData: {
       name: "",
-      location: "",
+      _geoloc: {
+        lat: "",
+        lng: "",
+      },
       email: "",
     },
   },
@@ -17,9 +20,16 @@ const state = {
     for (const cb of this.listeners) {
       cb();
     }
+    console.log(this.data);
   },
   suscribe(callback: (any) => any) {
     this.listeners.push(callback);
+  },
+  updateUserLocation(lat: number, lng: number) {
+    const currentState = this.getState();
+    currentState.userData._geoloc.lat = lat;
+    currentState.userData._geoloc.lng = lng;
+    this.setState(currentState);
   },
   signInUser(email: string, password: string) {
     fetch(API_BASE_URL + "/auth/token", {

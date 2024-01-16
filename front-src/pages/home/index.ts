@@ -18,7 +18,9 @@ class Home extends HTMLElement {
         console.log("hubo un error");
       } else {
         navigator.geolocation.getCurrentPosition(this.success);
-        Router.go("/lost-pets");
+        state.suscribe(() => {
+          Router.go("/lost-pets");
+        });
       }
     });
     // instructions button
@@ -31,7 +33,7 @@ class Home extends HTMLElement {
   success(position) {
     const lat = position.coords.latitude;
     const lng = position.coords.longitude;
-    console.log(lat, lng);
+    state.updateUserLocation(lat, lng);
   }
   render() {
     const petsImgsURL = require("url:../../assets/images.png");

@@ -5,10 +5,18 @@ class LostPets extends HTMLElement {
   connectedCallback() {
     this.render();
   }
-  addListeners() {}
+  addListeners() {
+    console.log(location);
+  }
   render() {
     this.innerHTML = `
-    soy lost pets
+    <custom-header></custom-header>
+    <h1>Mascotas perdidas cerca</h1>
+    <div class="pets-container">
+    <h1>Soy una mascota perdida</h1>
+    <h1>Soy una mascota perdida</h1>
+    <h1>Soy una mascota perdida</h1>
+    </div>
     `;
     this.addListeners();
   }
