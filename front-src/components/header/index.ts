@@ -1,3 +1,6 @@
+import { state } from "../../state";
+import { Router } from "@vaadin/router";
+
 class CustomHeader extends HTMLElement {
   shadow: ShadowRoot;
   constructor() {
@@ -20,6 +23,14 @@ class CustomHeader extends HTMLElement {
     });
     closeButtonEl?.addEventListener("click", (ev) => {
       hiddenMenuEl.style.display = "none";
+    });
+    const userDataOption = this.shadow.querySelector(".user-data");
+    userDataOption?.addEventListener("click", (e) => {
+      if (state.getToken()) {
+        Router.go("/user-data");
+      } else {
+        Router.go("/login");
+      }
     });
   }
   render() {
@@ -68,7 +79,7 @@ class CustomHeader extends HTMLElement {
     <div class="menu-mobile__conteiner">
     <img class="menu-mobile__close-button" src="${closeURL}" alt="close-button"/>
     <nav class="options">
-      <a>Mis Datos</a>
+      <a class="user-data">Mis Datos</a>
       <a>Mis Mascotas Reportadas</a>
       <a>Reportar Mascota</a>
   </nav>

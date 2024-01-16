@@ -10,7 +10,7 @@ class Home extends HTMLElement {
     return petsImgsURL;
   }
   addUpdatedListeners() {
-    // location button
+    // permitir geolocation button
     const locationButtonEl = this.querySelector(".location");
     locationButtonEl?.addEventListener("click", (event) => {
       if (!navigator.geolocation) {
@@ -22,7 +22,7 @@ class Home extends HTMLElement {
         });
       }
     });
-    // instructions button
+    // report pets button
     const reportButton = this.querySelector(".report");
     reportButton?.addEventListener("click", (event) => {});
   }
@@ -61,6 +61,7 @@ class Home extends HTMLElement {
     const lng = position.coords.longitude;
     state.updateUserLocation(lat, lng);
   }
+  // una vez que el user se loguea, vuelve a la home con la info actualizada
   uptadePage() {
     this.innerHTML = `
     <custom-header></custom-header>
@@ -78,6 +79,7 @@ class Home extends HTMLElement {
     `;
     this.addUpdatedListeners();
   }
+  // render original, sin user logueado
   render() {
     this.innerHTML = `
     <custom-header></custom-header>

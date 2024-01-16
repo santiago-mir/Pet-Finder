@@ -4,4 +4,5 @@ import "./pages/login";
 import "./pages/signup";
 import "./pages/instructions";
 import "./pages/pets";
+import "./pages/user-data";
 import "./router";
