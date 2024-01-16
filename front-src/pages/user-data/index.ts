@@ -9,7 +9,12 @@ class UserData extends HTMLElement {
 
   render() {
     this.innerHTML = `
-    soy la user data
+    <custom-header></custom-header>
+    <div class="user-data-container">
+    <h1 class="title">Mis datos</h1>
+    <button class="update-data button">Modificar Datos Personales</button>
+    <button class="update-password button">Modificar Contraseña</button>
+    </div>
     `;
     this.addListeners();
   }

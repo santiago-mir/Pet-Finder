@@ -38,6 +38,14 @@ body {
   align-items: center;
 }
 
+.user-data-container {
+  height: 70vh;
+  display: grid;
+  max-width: 500px;
+  margin: 0 auto;
+  align-items: end;
+}
+
 .title,
 .text {
   font-family: "Poppins", sans-serif;
