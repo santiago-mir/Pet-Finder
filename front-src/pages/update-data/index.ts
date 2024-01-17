@@ -10,7 +10,7 @@ class UpdateData extends HTMLElement {
     formEl?.addEventListener("submit", (event) => {
       event.preventDefault();
       let target = event.target as any; // cast target;
-      console.log(typeof target.name.value, typeof target.city.value);
+      state.updateUserData(target.name.value, target.city.value);
     });
   }
 

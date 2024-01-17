@@ -59,7 +59,7 @@ class Home extends HTMLElement {
   success(position) {
     const lat = position.coords.latitude;
     const lng = position.coords.longitude;
-    state.updateUserLocation(lat, lng);
+    state.setUserLocation(lat, lng);
   }
   // una vez que el user se loguea, vuelve a la home con la info actualizada
   uptadePage() {

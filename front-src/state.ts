@@ -26,22 +26,10 @@ const state = {
   suscribe(callback: (any) => any) {
     this.listeners.push(callback);
   },
-  updateUserLocation(lat: number, lng: number) {
+  setUserLocation(lat: number, lng: number) {
     const currentState = this.getState();
     currentState.userData._geoloc.lat = lat;
     currentState.userData._geoloc.lng = lng;
-    this.setState(currentState);
-  },
-  updateUserData(name: string, email: string, city?: string, token?: string) {
-    const currentState = this.getState();
-    currentState.userData.name = name;
-    currentState.userData.email = email;
-    if (city) {
-      currentState.userData.city = city;
-    }
-    if (token) {
-      currentState.userData.token = token;
-    }
     this.setState(currentState);
   },
   signInUser(email: string, password: string) {
@@ -59,7 +47,7 @@ const state = {
         return res.json();
       })
       .then((res) => {
-        state.updateUserData(
+        state.setUserData(
           res.user.firstName,
           res.user.email,
           res.user.city,
@@ -91,6 +79,39 @@ const state = {
       .then((res) => {
         console.log(res);
       });
+  },
+  updateUserData(name: string, city: string) {
+    fetch(API_BASE_URL + "/menu/update-data", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: "bearer " + state.getToken(),
+      },
+      body: JSON.stringify({
+        name,
+        city,
+      }),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        console.log(res);
+        state.setUserData(res.firstName, res.email, res.city);
+      });
+  },
+
+  setUserData(name: string, email: string, city?: string, token?: string) {
+    const currentState = this.getState();
+    currentState.userData.name = name;
+    currentState.userData.email = email;
+    if (city) {
+      currentState.userData.city = city;
+    }
+    if (token) {
+      currentState.userData.token = token;
+    }
+    this.setState(currentState);
   },
   getToken() {
     const currentToken = this.getState().userData.token;

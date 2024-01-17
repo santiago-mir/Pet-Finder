@@ -45,8 +45,18 @@ app.post("/auth/token", async (req, res) => {
 app.put("/menu/update-data", authMiddleware, async (req, res) => {
   const { name, city } = req.body;
   const userId = req["._user"].id;
-  const updatedUser = await UserController.updateUserData(userId, name, city);
+  await UserController.updateUserData(userId, name, city);
+  const updatedUser = await UserController.getOneUser(userId);
   res.json(updatedUser);
+});
+app.get("/user/:id", async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const userFound = await UserController.getOneUser(userId);
+    res.json(userFound);
+  } catch (error) {
+    res.status(400).json(error);
+  }
 });
 app.use(express.static(path.join(__dirname, "../dist")));
 
