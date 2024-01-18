@@ -24,7 +24,9 @@ class Home extends HTMLElement {
     });
     // report pets button
     const reportButton = this.querySelector(".report");
-    reportButton?.addEventListener("click", (event) => {});
+    reportButton?.addEventListener("click", (event) => {
+      Router.go("/report-pet");
+    });
   }
   addListeners() {
     if (state.getToken()) {
