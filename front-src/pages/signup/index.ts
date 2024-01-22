@@ -17,6 +17,9 @@ class Signup extends HTMLElement {
         target.confirmation.value
       );
     });
+    state.suscribe(() => {
+      Router.go("/home");
+    });
   }
   render() {
     this.innerHTML = `

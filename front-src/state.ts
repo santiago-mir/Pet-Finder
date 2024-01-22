@@ -77,7 +77,7 @@ const state = {
         return res.json();
       })
       .then((res) => {
-        console.log(res);
+        state.signInUser(email, password);
       });
   },
   updateUserData(name: string, city: string) {
@@ -100,7 +100,22 @@ const state = {
         state.setUserData(res.firstName, res.email, res.city);
       });
   },
-
+  createReport(petName: string, imgURL: string, lat: number, lng: number) {
+    fetch(API_BASE_URL + "/report", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: "bearer " + state.getToken(),
+      },
+      body: JSON.stringify({ petName, imgURL, lat, lng }),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        console.log(res);
+      });
+  },
   setUserData(name: string, email: string, city?: string, token?: string) {
     const currentState = this.getState();
     currentState.userData.name = name;

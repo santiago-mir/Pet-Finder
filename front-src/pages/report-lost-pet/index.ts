@@ -22,7 +22,12 @@ class ReportPet extends HTMLElement {
     formEl?.addEventListener("submit", (event) => {
       event.preventDefault();
       let target = event.target as any;
-      console.log(target.name.value, dataURL, locationData);
+      state.createReport(
+        target.name.value,
+        dataURL,
+        locationData.lat,
+        locationData.lng
+      );
     });
   }
   render() {

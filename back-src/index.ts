@@ -41,6 +41,9 @@ app.post("/auth/token", async (req, res) => {
     res.status(404).json({ error: "email o password incorrecto" });
   }
 });
+app.post("/report", async (req, res) => {
+  res.json(req.body);
+});
 
 app.put("/menu/update-data", authMiddleware, async (req, res) => {
   const { name, city } = req.body;

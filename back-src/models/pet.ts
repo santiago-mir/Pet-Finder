@@ -6,6 +6,7 @@ Pet.init(
   {
     name: { type: DataTypes.STRING, allowNull: false },
     lost: { type: DataTypes.BOOLEAN, allowNull: false },
+    img_URL: { type: DataTypes.STRING, allowNull: false },
     last_lat: { type: DataTypes.STRING, allowNull: true },
     last_lng: { type: DataTypes.STRING, allowNull: true },
   },
