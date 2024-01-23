@@ -5,14 +5,17 @@ import { User, Auth, Pet, Report } from "./models/models";
 import * as cors from "cors";
 import * as path from "path";
 import * as jwt from "jsonwebtoken";
+import { cloudinary } from "../lib/cloudinary";
 import { authMiddleware } from "./utilities";
 import { AuthController } from "./controllers/auth-controller";
 import { UserController } from "./controllers/user-controller";
+import { LostPetController } from "./controllers/lost-pets-controller";
 const port = process.env.BACK_PORT;
 const SECRET_JWT = process.env.SECRET;
 const app = express();
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: "50mb" }));
+
 // sign-up
 
 app.post("/auth", async (req, res) => {
@@ -41,8 +44,21 @@ app.post("/auth/token", async (req, res) => {
     res.status(404).json({ error: "email o password incorrecto" });
   }
 });
-app.post("/report", async (req, res) => {
-  res.json(req.body);
+app.post("/report", authMiddleware, async (req, res) => {
+  try {
+    const { petName, imgURL, lat, lng } = req.body;
+    const userId = req["._user"].id;
+    const newReport = await LostPetController.createReport(
+      petName,
+      imgURL,
+      lat,
+      lng,
+      userId
+    );
+    res.json(newReport);
+  } catch (err) {
+    res.status(404).json({ err });
+  }
 });
 
 app.put("/menu/update-data", authMiddleware, async (req, res) => {

@@ -1,5 +1,5 @@
 const API_BASE_URL = process.env.API_BASE_URL;
-
+import { cloudinary } from "../lib/cloudinary";
 const state = {
   data: {
     userData: {
@@ -102,7 +102,7 @@ const state = {
   },
   createReport(petName: string, imgURL: string, lat: number, lng: number) {
     fetch(API_BASE_URL + "/report", {
-      method: "PUT",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
         authorization: "bearer " + state.getToken(),

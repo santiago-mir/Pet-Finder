@@ -9,7 +9,7 @@ function authMiddleware(req, res, next) {
     req["._user"] = data;
     next();
   } catch (error) {
-    res.status(401).json({ error: true });
+    res.status(401).json({ error: "token invalido" });
   }
 }
 function getSHA256ofString(text) {
