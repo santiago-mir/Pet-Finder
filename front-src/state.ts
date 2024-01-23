@@ -11,6 +11,7 @@ const state = {
       email: "",
       token: "",
     },
+    reportCreated: false,
   },
   listeners: [],
   getState() {
@@ -113,7 +114,7 @@ const state = {
         return res.json();
       })
       .then((res) => {
-        console.log(res);
+        state.setReportStatus();
       });
   },
   setUserData(name: string, email: string, city?: string, token?: string) {
@@ -126,6 +127,16 @@ const state = {
     if (token) {
       currentState.userData.token = token;
     }
+    this.setState(currentState);
+  },
+  setReportStatus() {
+    const currentState = this.getState();
+    currentState.reportCreated = true;
+    this.setState(currentState);
+  },
+  resetReportFlag() {
+    const currentState = this.getState();
+    currentState.reportCreated = false;
     this.setState(currentState);
   },
   getToken() {

@@ -5,6 +5,7 @@ import "./pages/signup";
 import "./pages/instructions";
 import "./pages/pets";
 import "./pages/report-lost-pet";
+import "./pages/report-created";
 import "./pages/user-data";
 import "./pages/update-data";
 import "./pages/update-password";

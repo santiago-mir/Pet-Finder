@@ -29,6 +29,9 @@ class ReportPet extends HTMLElement {
         locationData.lng
       );
     });
+    state.suscribe(() => {
+      Router.go("/report-created");
+    });
   }
   render() {
     this.innerHTML = `
