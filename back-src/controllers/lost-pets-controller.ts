@@ -12,12 +12,13 @@ class LostPetController {
     if (!petName || !imgData || !lat || !lng || !userId) {
       throw new Error("faltan completar campos en el formulario");
     } else {
+      // upload img a cloudinary
       const imgURL = await cloudinary.uploader.upload(imgData, {
         resource_type: "image",
         discard_original_filename: true,
         width: 1000,
       });
-      console.log(typeof imgURL);
+      // crea el report en la DB
       const newReport = await Pet.create({
         name: petName,
         lost: true,
@@ -27,6 +28,18 @@ class LostPetController {
         userId,
       });
 
+      // crea el report en algolia
+      const newAlgoliaRecord = index
+        .saveObject({
+          objectID: newReport.get("id"),
+          name: petName,
+          _geoloc: {
+            lat,
+            lng,
+          },
+          imgURL: imgURL.secure_url,
+        })
+        .wait();
       return newReport;
     }
   }

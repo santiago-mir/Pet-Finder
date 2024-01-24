@@ -1,11 +1,9 @@
 import * as express from "express";
 import "./dev";
 import { sequelize } from "./db";
-import { User, Auth, Pet, Report } from "./models/models";
 import * as cors from "cors";
 import * as path from "path";
 import * as jwt from "jsonwebtoken";
-import { cloudinary } from "../lib/cloudinary";
 import { authMiddleware } from "./utilities";
 import { AuthController } from "./controllers/auth-controller";
 import { UserController } from "./controllers/user-controller";
