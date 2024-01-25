@@ -114,7 +114,11 @@ const state = {
         return res.json();
       })
       .then((res) => {
-        state.setReportStatus();
+        if (res.error) {
+          console.log("token invalido, inicia sesion");
+        } else {
+          state.setReportStatus();
+        }
       });
   },
   setUserData(name: string, email: string, city?: string, token?: string) {
