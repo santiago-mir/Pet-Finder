@@ -56,6 +56,44 @@ body {
   padding: 15px;
 }
 
+.pets-container {
+  display: flex;
+  max-width: 500px;
+  gap: 40px;
+  margin: 0 auto;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-container {
+  display: flex;
+  max-width: 400px;
+  flex-direction: column;
+  max-height: 400px;
+  background-color: #5e5e5e;
+  border-radius: 15px;
+}
+
+.card-image {
+  width: 350px;
+  height: 250px;
+  object-fit: fill;
+}
+.card-info-container {
+  justify-content: space-evenly;
+  display: flex;
+  height: 100px;
+  align-items: center;
+}
+
+.text-container {
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  /* gap: 10px; */
+  font-size: 24px;
+}
+
 .title,
 .text {
   font-family: "Poppins", sans-serif;
@@ -92,6 +130,17 @@ body {
   font-weight: 700;
   background-color: #5a8fec;
   text-align: center;
+}
+
+.report-button {
+  width: 90px;
+  height: 70px;
+  background: #fc6c6c;
+  border: none;
+  border-radius: 15px;
+  align-self: center;
+  font-family: "POPPINS";
+  font-size: 18px;
 }
 
 .text {

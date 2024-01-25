@@ -1,5 +1,5 @@
 const API_BASE_URL = process.env.API_BASE_URL;
-import { cloudinary } from "../lib/cloudinary";
+
 const state = {
   data: {
     userData: {
@@ -12,6 +12,7 @@ const state = {
       token: "",
     },
     reportCreated: false,
+    lostPets: [],
   },
   listeners: [],
   getState() {
@@ -140,7 +141,7 @@ const state = {
         return res.json();
       })
       .then((res) => {
-        console.log(res);
+        state.setLostPets(res);
       });
   },
   setUserData(name: string, email: string, city?: string, token?: string) {
@@ -160,6 +161,11 @@ const state = {
     currentState.reportCreated = true;
     this.setState(currentState);
   },
+  setLostPets(petsFound: Array<Object>) {
+    const currentState = this.getState();
+    currentState.lostPets = petsFound;
+    this.setState(currentState);
+  },
   resetReportFlag() {
     const currentState = this.getState();
     currentState.reportCreated = false;
@@ -176,6 +182,10 @@ const state = {
   getUserLatLng() {
     const currentLocation = this.getState().userData._geoloc;
     return currentLocation;
+  },
+  getLostPets() {
+    const currentPets = this.getState().lostPets;
+    return currentPets;
   },
 };
 
