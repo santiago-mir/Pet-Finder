@@ -121,6 +121,28 @@ const state = {
         }
       });
   },
+  getLostPetsAroundLatLng() {
+    fetch(
+      API_BASE_URL +
+        "/lost-pets/" +
+        "?lat=" +
+        state.getUserLatLng().lat +
+        "&lng=" +
+        state.getUserLatLng().lng,
+      {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json",
+        },
+      }
+    )
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        console.log(res);
+      });
+  },
   setUserData(name: string, email: string, city?: string, token?: string) {
     const currentState = this.getState();
     currentState.userData.name = name;
@@ -150,6 +172,10 @@ const state = {
   getUserName() {
     const currentName = this.getState().userData.name;
     return currentName;
+  },
+  getUserLatLng() {
+    const currentLocation = this.getState().userData._geoloc;
+    return currentLocation;
   },
 };
 

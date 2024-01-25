@@ -75,6 +75,15 @@ app.get("/user/:id", async (req, res) => {
     res.status(400).json(error);
   }
 });
+app.get("/lost-pets", async (req, res) => {
+  try {
+    const { lat, lng } = req.query;
+    const petsFound = await LostPetController.getAllPetsAround(+lat, +lng);
+    res.json(petsFound);
+  } catch (err) {
+    res.status(404).json({ error: err });
+  }
+});
 app.use(express.static(path.join(__dirname, "../dist")));
 
 app.get("*", (req, res) => {

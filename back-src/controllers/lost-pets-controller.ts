@@ -43,6 +43,13 @@ class LostPetController {
       return newReport;
     }
   }
+  public static async getAllPetsAround(lat: number, lng: number) {
+    const { hits } = await index.search("", {
+      aroundLatLng: `${lat}, ${lng}`,
+      aroundRadius: 1000000,
+    });
+    return hits;
+  }
 }
 
 export { LostPetController };

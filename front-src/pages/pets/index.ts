@@ -6,7 +6,7 @@ class LostPets extends HTMLElement {
     this.render();
   }
   addListeners() {
-    console.log(location);
+    state.getLostPetsAroundLatLng();
   }
   render() {
     this.innerHTML = `
