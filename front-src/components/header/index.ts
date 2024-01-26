@@ -53,6 +53,11 @@ class CustomHeader extends HTMLElement {
         Router.go("/login");
       }
     });
+    // home img
+    const mapImgEl = this.shadow.querySelector(".home-img");
+    mapImgEl?.addEventListener("click", (e) => {
+      Router.go("/home");
+    });
   }
   render() {
     const headerEl = document.createElement("header");
@@ -95,7 +100,7 @@ class CustomHeader extends HTMLElement {
     
     `;
     headerEl.innerHTML = `
-    <img src="${mapsURL}">
+    <img class="home-img"src="${mapsURL}">
     <img class="menu-mobile" src="${imgURL}"  />
     <div class="menu-mobile__conteiner">
     <img class="menu-mobile__close-button" src="${closeURL}" alt="close-button"/>

@@ -103,23 +103,46 @@ const state = {
       });
   },
   createReport(petName: string, imgURL: string, lat: number, lng: number) {
-    fetch(API_BASE_URL + "/report", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: "bearer " + state.getToken(),
-      },
-      body: JSON.stringify({ petName, imgURL, lat, lng }),
-    })
+    // obtengo el nombre de la ciudad/localidad llamando a la api de mapbox
+    let cityName = "algo";
+    fetch(
+      "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
+        lng +
+        "," +
+        lat +
+        ".json?access_token=" +
+        process.env.MAPBOX_TOKEN,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
       .then((res) => {
         return res.json();
       })
       .then((res) => {
-        if (res.error) {
-          console.log("token invalido, inicia sesion");
-        } else {
-          state.setReportStatus();
-        }
+        let cityName = res.features[2].text; // nombre de ciudad/localidad
+        // llamado a mi api para hacer el report
+        fetch(API_BASE_URL + "/report", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: "bearer " + state.getToken(),
+          },
+          body: JSON.stringify({ petName, imgURL, lat, lng, cityName }),
+        })
+          .then((res) => {
+            return res.json();
+          })
+          .then((res) => {
+            if (res.error) {
+              console.log("token invalido, inicia sesion");
+            } else {
+              state.setReportStatus();
+            }
+          });
       });
   },
   getLostPetsAroundLatLng() {

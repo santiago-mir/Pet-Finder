@@ -5,11 +5,12 @@ class LostPetController {
   public static async createReport(
     petName: string,
     imgData: string,
+    cityName: string,
     lat: number,
     lng: number,
     userId: number
   ): Promise<Pet> {
-    if (!petName || !imgData || !lat || !lng || !userId) {
+    if (!petName || !imgData || !lat || !lng || !userId || !cityName) {
       throw new Error("faltan completar campos en el formulario");
     } else {
       // upload img a cloudinary
@@ -22,6 +23,7 @@ class LostPetController {
       const newReport = await Pet.create({
         name: petName,
         lost: true,
+        city: cityName,
         img_URL: imgURL.secure_url,
         last_lat: lat,
         last_lng: lng,
@@ -33,6 +35,7 @@ class LostPetController {
         .saveObject({
           objectID: newReport.get("id"),
           name: petName,
+          city: cityName,
           _geoloc: {
             lat,
             lng,

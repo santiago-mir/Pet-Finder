@@ -44,17 +44,19 @@ app.post("/auth/token", async (req, res) => {
 });
 app.post("/report", authMiddleware, async (req, res) => {
   try {
-    const { petName, imgURL, lat, lng } = req.body;
+    const { petName, imgURL, lat, lng, cityName } = req.body;
     const userId = req["._user"].id;
     const newReport = await LostPetController.createReport(
       petName,
       imgURL,
+      cityName,
       lat,
       lng,
       userId
     );
     res.json(newReport);
   } catch (err) {
+    console.log(err);
     res.status(404).json({ err });
   }
 });
