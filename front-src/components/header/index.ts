@@ -12,22 +12,43 @@ class CustomHeader extends HTMLElement {
   }
   addListeners() {
     const menuEl = this.shadow.querySelector(".menu-mobile");
-    const closeButtonEl = this.shadow.querySelector(
-      ".menu-mobile__close-button"
-    );
+
     const hiddenMenuEl = this.shadow.querySelector(
       ".menu-mobile__conteiner"
     ) as any;
     menuEl?.addEventListener("click", (event) => {
       hiddenMenuEl.style.display = "grid";
     });
+    // close button del menu
+    const closeButtonEl = this.shadow.querySelector(
+      ".menu-mobile__close-button"
+    );
     closeButtonEl?.addEventListener("click", (ev) => {
       hiddenMenuEl.style.display = "none";
     });
-    const userDataOption = this.shadow.querySelector(".user-data");
-    userDataOption?.addEventListener("click", (e) => {
+    // my data option
+    const userDataOptionEl = this.shadow.querySelector(".user-data");
+    userDataOptionEl?.addEventListener("click", (e) => {
       if (state.getToken()) {
-        Router.go("/user-data");
+        Router.go("/my-data");
+      } else {
+        Router.go("/login");
+      }
+    });
+    // my reports option
+    const userReportOptionEl = this.shadow.querySelector(".user-reports");
+    userReportOptionEl?.addEventListener("click", (e) => {
+      if (state.getToken()) {
+        Router.go("/my-reports");
+      } else {
+        Router.go("/login");
+      }
+    });
+    // report pet option
+    const reportPetOptionEl = this.shadow.querySelector(".report-pet");
+    reportPetOptionEl?.addEventListener("click", (e) => {
+      if (state.getToken()) {
+        Router.go("/report-pet");
       } else {
         Router.go("/login");
       }
@@ -80,8 +101,8 @@ class CustomHeader extends HTMLElement {
     <img class="menu-mobile__close-button" src="${closeURL}" alt="close-button"/>
     <nav class="options">
       <a class="user-data">Mis Datos</a>
-      <a>Mis Mascotas Reportadas</a>
-      <a>Reportar Mascota</a>
+      <a class="user-reports">Mis Mascotas Reportadas</a>
+      <a class="report-pet">Reportar Mascota</a>
   </nav>
     </div>
     `;

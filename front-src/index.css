@@ -71,13 +71,14 @@ body {
   flex-direction: column;
   max-height: 400px;
   background-color: #5e5e5e;
-  border-radius: 15px;
+  border-radius: 50px;
 }
 
 .card-image {
   width: 350px;
   height: 250px;
   object-fit: fill;
+  border-radius: 50px;
 }
 .card-info-container {
   justify-content: space-evenly;
