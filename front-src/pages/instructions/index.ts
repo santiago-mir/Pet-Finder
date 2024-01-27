@@ -12,6 +12,7 @@ class Instructions extends HTMLElement {
         console.log("hubo un error");
       } else {
         navigator.geolocation.getCurrentPosition(this.success);
+        Router.go("/lost-pets");
       }
     });
   }

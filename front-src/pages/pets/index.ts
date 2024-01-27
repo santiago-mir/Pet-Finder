@@ -22,7 +22,7 @@ class LostPets extends HTMLElement {
       <div class="card-info-container">
         <div class="text-container">
           <h3 class="text">${pet.name}</h3>
-          <h5 class="text">Insertar lugar</h5>
+          <h5 class="text">${pet.city}</h5>
         </div>
         <button class="report-button">Reportar</button>
       </div>
