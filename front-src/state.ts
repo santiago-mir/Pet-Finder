@@ -8,6 +8,7 @@ const state = {
         lat: "",
         lng: "",
       },
+      city: "",
       email: "",
       token: "",
     },
@@ -29,10 +30,32 @@ const state = {
     this.listeners.push(callback);
   },
   setUserLocation(lat: number, lng: number) {
-    const currentState = this.getState();
-    currentState.userData._geoloc.lat = lat;
-    currentState.userData._geoloc.lng = lng;
-    this.setState(currentState);
+    // obtengo la ciudad/localidad del user
+    fetch(
+      "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
+        lng +
+        "," +
+        lat +
+        ".json?access_token=" +
+        process.env.MAPBOX_TOKEN,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        let cityName = res.features[2].text; // nombre de ciudad/localidad
+        const currentState = this.getState();
+        currentState.userData._geoloc.lat = lat;
+        currentState.userData._geoloc.lng = lng;
+        currentState.userData.city = cityName;
+        this.setState(currentState);
+      });
   },
   signInUser(email: string, password: string) {
     fetch(API_BASE_URL + "/auth/token", {
@@ -104,7 +127,6 @@ const state = {
   },
   createReport(petName: string, imgURL: string, lat: number, lng: number) {
     // obtengo el nombre de la ciudad/localidad llamando a la api de mapbox
-    let cityName = "algo";
     fetch(
       "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
         lng +
@@ -209,6 +231,10 @@ const state = {
   getLostPets() {
     const currentPets = this.getState().lostPets;
     return currentPets;
+  },
+  getUserCity() {
+    const currentCity = this.getState().userData.city;
+    return currentCity;
   },
 };
 

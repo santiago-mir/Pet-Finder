@@ -27,14 +27,27 @@ class LostPets extends HTMLElement {
         <button class="report-button">Reportar</button>
       </div>
       `;
+      // boton para reportar que el usuario vio a una mascota perdida
+      const reportPetButtonEl = newCard.querySelector(".report-button");
+      reportPetButtonEl?.addEventListener("click", (ev) => {
+        Router.go("/report-seen-pet");
+      });
       newCard.classList.add("card-container");
       lostPetsContainerEl?.appendChild(newCard);
     }
+    // go back home bubbont
+    const backButtonEl = document.createElement("button");
+    backButtonEl.textContent = "Volver";
+    backButtonEl.classList.add("button");
+    backButtonEl.addEventListener("click", (ev) => {
+      Router.go("/home");
+    });
+    lostPetsContainerEl?.appendChild(backButtonEl);
   }
   render() {
     this.innerHTML = `
     <custom-header></custom-header>
-    <h1>Mascotas perdidas cerca</h1>
+    <h1>Mascotas perdidas cerca de ${state.getUserCity()}</h1>
     <div class="pets-container"></div>
     `;
     this.addListeners();
