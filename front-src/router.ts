@@ -7,6 +7,7 @@ router.setRoutes([
   { path: "/instructions", component: "instructions-page" },
   { path: "/lost-pets", component: "lost-pets-page" },
   { path: "/report-pet", component: "report-pet-page" },
+  { path: "/report-seen-pet", component: "report-seen-pet-page" },
   { path: "/report-created", component: "report-created-page" },
   { path: "/my-data", component: "user-data-page" },
   { path: "/my-reports", component: "user-reports-page" },
