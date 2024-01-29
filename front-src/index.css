@@ -95,6 +95,34 @@ body {
   font-size: 24px;
 }
 
+.form-container {
+  display: none;
+}
+
+.report-seen-pet {
+  z-index: 2;
+  background-color: #000000;
+  border-radius: 20px;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 400px;
+  height: 500px;
+  display: flex;
+  position: fixed;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  color: white;
+}
+
+.aux-container {
+  filter: none;
+}
+.blur {
+  filter: blur(8px);
+}
+
 .title,
 .text {
   font-family: "Poppins", sans-serif;
@@ -114,6 +142,14 @@ body {
   border: solid;
   border-radius: 15px;
   height: 30px;
+}
+.textarea {
+  height: 80px;
+  margin-top: 5px;
+  display: block;
+  width: 100%;
+  border: solid;
+  border-radius: 15px;
 }
 
 .title {
@@ -157,4 +193,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.close {
+  width: 30px;
+  align-self: end;
 }
