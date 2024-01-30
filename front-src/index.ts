@@ -7,6 +7,7 @@ import "./pages/lost-pets";
 import "./pages/report-lost-pet";
 import "./pages/report-created";
 import "./pages/user-data";
+import "./pages/user-reports";
 import "./pages/update-data";
 import "./pages/update-password";
 import "./router";

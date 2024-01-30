@@ -53,6 +53,17 @@ class LostPetController {
     });
     return hits;
   }
+  public static async getAllReports(userId: string) {
+    if (!userId) {
+      throw new Error("userController: userId invalido o incorrecto");
+    } else {
+      const userReports = await Pet.findAll({
+        where: { userId },
+      });
+
+      return userReports;
+    }
+  }
 }
 
 export { LostPetController };

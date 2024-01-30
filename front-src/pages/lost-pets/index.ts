@@ -6,7 +6,9 @@ class LostPets extends HTMLElement {
     this.render();
   }
   async addListeners() {
+    // obtiene los pets segun la ubicacion del usuario
     state.getLostPetsAroundLatLng();
+
     state.suscribe(() => {
       this.displayPets();
     });
@@ -68,6 +70,16 @@ class LostPets extends HTMLElement {
     const formEl = formContainer.querySelector(".form");
     formEl?.addEventListener("submit", (ev) => {
       ev.preventDefault();
+      // restaruar background
+      blurredContainer.classList.remove("blur");
+      blurredContainer.classList.add("aux-container");
+      // esconder form
+      formContainer.classList.remove("report-seen-pet");
+      formContainer.classList.add("form-container");
+    });
+    // close button del form
+    const closeFormButtonEl = formContainer.querySelector(".close");
+    closeFormButtonEl?.addEventListener("click", (ev) => {
       // restaruar background
       blurredContainer.classList.remove("blur");
       blurredContainer.classList.add("aux-container");

@@ -189,6 +189,21 @@ const state = {
         state.setLostPets(res);
       });
   },
+  getUserReports() {
+    fetch(API_BASE_URL + "/user-reports", {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+        authorization: "bearer " + state.getToken(),
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        console.log(res);
+      });
+  },
   setUserData(name: string, email: string, city?: string, token?: string) {
     const currentState = this.getState();
     currentState.userData.name = name;

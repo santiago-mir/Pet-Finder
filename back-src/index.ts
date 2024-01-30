@@ -86,6 +86,15 @@ app.get("/lost-pets", async (req, res) => {
     res.status(404).json({ error: err });
   }
 });
+app.get("/user-reports", authMiddleware, async (req, res) => {
+  try {
+    const userId = req["._user"].id;
+    const reportsFound = await LostPetController.getAllReports(userId);
+    res.json(reportsFound);
+  } catch (err) {
+    res.status(404).json({ error: err });
+  }
+});
 app.use(express.static(path.join(__dirname, "../dist")));
 
 app.get("*", (req, res) => {
