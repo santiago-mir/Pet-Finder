@@ -11,6 +11,7 @@ const state = {
       city: "",
       email: "",
       token: "",
+      userReports: [],
     },
     reportCreated: false,
     lostPets: [],
@@ -189,7 +190,7 @@ const state = {
         state.setLostPets(res);
       });
   },
-  getUserReports() {
+  updateUserReports() {
     fetch(API_BASE_URL + "/user-reports", {
       method: "GET",
       headers: {
@@ -201,7 +202,7 @@ const state = {
         return res.json();
       })
       .then((res) => {
-        console.log(res);
+        state.setUserReports(res);
       });
   },
   setUserData(name: string, email: string, city?: string, token?: string) {
@@ -214,6 +215,11 @@ const state = {
     if (token) {
       currentState.userData.token = token;
     }
+    this.setState(currentState);
+  },
+  setUserReports(reportsArr: Array<Object>) {
+    const currentState = this.getState();
+    currentState.userData.userReports = reportsArr;
     this.setState(currentState);
   },
   setReportStatus() {
@@ -250,6 +256,10 @@ const state = {
   getUserCity() {
     const currentCity = this.getState().userData.city;
     return currentCity;
+  },
+  getUserReports() {
+    const currentReports = this.getState().userData.userReports;
+    return currentReports;
   },
 };
 

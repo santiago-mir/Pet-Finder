@@ -10,6 +10,8 @@ class Home extends HTMLElement {
     return petsImgsURL;
   }
   addUpdatedListeners() {
+    // cargar los reports del user desde la DB
+    state.updateUserReports();
     // permitir geolocation button
     const locationButtonEl = this.querySelector(".location");
     locationButtonEl?.addEventListener("click", (event) => {

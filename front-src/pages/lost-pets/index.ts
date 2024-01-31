@@ -5,7 +5,7 @@ class LostPets extends HTMLElement {
   connectedCallback() {
     this.render();
   }
-  async addListeners() {
+  addListeners() {
     // obtiene los pets segun la ubicacion del usuario
     state.getLostPetsAroundLatLng();
 
