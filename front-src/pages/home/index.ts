@@ -10,8 +10,11 @@ class Home extends HTMLElement {
     return petsImgsURL;
   }
   addUpdatedListeners() {
-    // cargar los reports del user desde la DB
-    state.updateUserReports();
+    // cargar los reports del user desde la DB solo una vez, despues, si se suman nuevos reportes,
+    // se actualizan desde la report page
+    if (!state.getUserReports()) {
+      state.updateUserReports();
+    }
     // permitir geolocation button
     const locationButtonEl = this.querySelector(".location");
     locationButtonEl?.addEventListener("click", (event) => {

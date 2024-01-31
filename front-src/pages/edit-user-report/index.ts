@@ -3,7 +3,7 @@ import { Router } from "@vaadin/router";
 import { Dropzone } from "dropzone";
 import { initMap } from "../../../lib/mapbox.ts";
 
-class ReportPet extends HTMLElement {
+class EditReport extends HTMLElement {
   connectedCallback() {
     this.render();
   }
@@ -56,4 +56,4 @@ class ReportPet extends HTMLElement {
     this.addListeners();
   }
 }
-customElements.define("report-pet-page", ReportPet);
+customElements.define("edit-report-page", EditReport);

@@ -6,6 +6,8 @@ class ReportCreated extends HTMLElement {
     this.render();
   }
   addListeners() {
+    // actualiza los reports del usuario, con el nuevo report
+    state.updateUserReports();
     // return home button
     const returnButtonEl = this.querySelector(".return");
     returnButtonEl?.addEventListener("click", (ev) => {

@@ -26,9 +26,11 @@ class UserReports extends HTMLElement {
           <h3 class="text">${report.name}</h3>
           <h5 class="text">${report.city}</h5>
         </div>
-        <button class="report-button">Reportar</button>
+        <button class="edit-button">Editar Reporte</button>
       </div>
       `;
+      const editReportButtonEl = newCard.querySelector(".edit-button");
+      editReportButtonEl?.addEventListener("click", (ev) => {});
       newCard.classList.add("card-container");
       container?.appendChild(newCard);
     }

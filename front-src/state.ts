@@ -11,7 +11,7 @@ const state = {
       city: "",
       email: "",
       token: "",
-      userReports: [],
+      userReports: "",
     },
     reportCreated: false,
     lostPets: [],
