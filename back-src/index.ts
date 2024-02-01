@@ -60,7 +60,23 @@ app.post("/report", authMiddleware, async (req, res) => {
     res.status(404).json({ err });
   }
 });
-
+app.put("/edit-report", authMiddleware, async (req, res) => {
+  try {
+    const { petName, imgURL, lat, lng, cityName, reportId } = req.body;
+    const updatedReport = await LostPetController.updateReport(
+      petName,
+      imgURL,
+      cityName,
+      lat,
+      lng,
+      reportId
+    );
+    res.json(updatedReport);
+  } catch (err) {
+    console.log(err);
+    res.status(404).json({ err });
+  }
+});
 app.put("/menu/update-data", authMiddleware, async (req, res) => {
   const { name, city } = req.body;
   const userId = req["._user"].id;

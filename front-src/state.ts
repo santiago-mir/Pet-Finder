@@ -13,7 +13,9 @@ const state = {
       token: "",
       userReports: "",
     },
+    reportId: "",
     reportCreated: false,
+    updatedReportFlag: false,
     lostPets: [],
   },
   listeners: [],
@@ -168,6 +170,61 @@ const state = {
           });
       });
   },
+  updateReport(
+    petName: string,
+    imgURL: string,
+    lat: number,
+    lng: number,
+    reportId: string
+  ) {
+    // obtengo el nombre de la ciudad/localidad llamando a la api de mapbox
+    fetch(
+      "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
+        lng +
+        "," +
+        lat +
+        ".json?access_token=" +
+        process.env.MAPBOX_TOKEN,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        let cityName = res.features[2].text; // nombre de ciudad/localidad
+        // llamado a mi api para hacer el report
+        fetch(API_BASE_URL + "/edit-report", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: "bearer " + state.getToken(),
+          },
+          body: JSON.stringify({
+            petName,
+            imgURL,
+            lat,
+            lng,
+            cityName,
+            reportId,
+          }),
+        })
+          .then((res) => {
+            return res.json();
+          })
+          .then((res) => {
+            if (res.error) {
+              console.log("token invalido, inicia sesion");
+            } else {
+              state.setReportStatus();
+            }
+          });
+      });
+  },
   getLostPetsAroundLatLng() {
     fetch(
       API_BASE_URL +
@@ -232,9 +289,24 @@ const state = {
     currentState.lostPets = petsFound;
     this.setState(currentState);
   },
+  setReportId(reportId: string) {
+    const currentState = this.getState();
+    currentState.reportId = reportId;
+    this.setState(currentState);
+  },
+  setUpdatedReportFlas() {
+    const currentState = this.getState();
+    currentState.updatedReportFlag = true;
+    this.setState(currentState);
+  },
   resetReportFlag() {
     const currentState = this.getState();
     currentState.reportCreated = false;
+    this.setState(currentState);
+  },
+  resetUpdateReportFlag() {
+    const currentState = this.getState();
+    currentState.updatedReportFlag = false;
     this.setState(currentState);
   },
   getToken() {
@@ -260,6 +332,14 @@ const state = {
   getUserReports() {
     const currentReports = this.getState().userData.userReports;
     return currentReports;
+  },
+  getReportId() {
+    const currentId = this.getState().reportId;
+    return currentId;
+  },
+  getUpdatedRecordFlag() {
+    const currentFlag = this.getState().updatedReportFlag;
+    return currentFlag;
   },
 };
 

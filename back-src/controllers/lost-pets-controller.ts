@@ -46,6 +46,55 @@ class LostPetController {
       return newReport;
     }
   }
+  public static async updateReport(
+    petName: string,
+    imgData: string,
+    cityName: string,
+    lat: number,
+    lng: number,
+    reportId: number
+  ) {
+    if (!petName || !imgData || !lat || !lng || !cityName || !reportId) {
+      throw new Error("faltan completar campos en el formulario");
+    } else {
+      // upload img a cloudinary
+      const imgURL = await cloudinary.uploader.upload(imgData, {
+        resource_type: "image",
+        discard_original_filename: true,
+        width: 1000,
+      });
+      // crea el report en la DB
+      const updatedRecord = await Pet.update(
+        {
+          name: petName,
+          city: cityName,
+          img_URL: imgURL.secure_url,
+          last_lat: lat,
+          last_lng: lng,
+        },
+        {
+          where: {
+            id: reportId,
+          },
+        }
+      );
+
+      // crea el report en algolia
+      const updatedAlgoliaRecord = index
+        .partialUpdateObject({
+          objectID: reportId,
+          name: petName,
+          city: cityName,
+          _geoloc: {
+            lat,
+            lng,
+          },
+          imgURL: imgURL.secure_url,
+        })
+        .wait();
+      return updatedAlgoliaRecord;
+    }
+  }
   public static async getAllPetsAround(lat: number, lng: number) {
     const { hits } = await index.search("", {
       aroundLatLng: `${lat}, ${lng}`,
