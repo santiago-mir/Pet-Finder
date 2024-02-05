@@ -1,5 +1,6 @@
 import { state } from "../../state.ts";
 import { Router } from "@vaadin/router";
+import { sendEmail } from "../../../lib/resend.ts";
 
 class LostPets extends HTMLElement {
   connectedCallback() {
@@ -18,9 +19,6 @@ class LostPets extends HTMLElement {
     const lostPets = state.getLostPets();
     // create all lost pets cards
     this.createCards(lostPetsContainerEl, lostPets);
-
-    // go back home bubbont
-    this.addButton(lostPetsContainerEl!);
   }
   createCards(container, petArray) {
     for (const pet of petArray) {
@@ -43,11 +41,18 @@ class LostPets extends HTMLElement {
         auxContainerEl?.classList.add("blur");
         // mostrar form
         const formElContainer = this.querySelector(".form-container");
-        this.displayForm(formElContainer!, pet.name, auxContainerEl!);
+        this.displayForm(
+          formElContainer!,
+          pet.name,
+          pet.ownerId,
+          auxContainerEl!
+        );
       });
       newCard.classList.add("card-container");
       container?.appendChild(newCard);
     }
+    // go back home button
+    this.addButton(container!);
   }
   addButton(container: Element) {
     const backButtonEl = document.createElement("button");
@@ -61,15 +66,23 @@ class LostPets extends HTMLElement {
   displayForm(
     formContainer: Element,
     petName: string,
+    ownerId: string,
     blurredContainer: Element
   ) {
+    // gets pet owner data
+    state.getUserData(ownerId);
+    //
     formContainer?.classList.remove("form-container");
     formContainer?.classList.add("report-seen-pet");
     const petTitleEl = formContainer?.querySelector(".pet-name");
     petTitleEl!.textContent = `Reportar informacion de ${petName}`;
     const formEl = formContainer.querySelector(".form");
+    //submit form
     formEl?.addEventListener("submit", (ev) => {
       ev.preventDefault();
+      let target = ev.target as any;
+
+      sendEmail(target.information.value, state.getPetOwnerEmail(), petName);
       // restaruar background
       blurredContainer.classList.remove("blur");
       blurredContainer.classList.add("aux-container");

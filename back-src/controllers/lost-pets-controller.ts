@@ -41,6 +41,7 @@ class LostPetController {
             lng,
           },
           imgURL: imgURL.secure_url,
+          ownerId: userId,
         })
         .wait();
       return newReport;

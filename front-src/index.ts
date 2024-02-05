@@ -12,3 +12,5 @@ import "./pages/user-reports";
 import "./pages/update-data";
 import "./pages/update-password";
 import "./router";
+import { state } from "./state";
+state.init();

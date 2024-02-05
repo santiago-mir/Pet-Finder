@@ -92,11 +92,22 @@ class CustomHeader extends HTMLElement {
       display: flex;
       gap: 60px;
       font-size: 30px;
+      font-weight: 700;
+      font-family: "POPPINS";
+      color: white;
       flex-direction: column;
       justify-self: center;
     }
+    .info-container{
+      display: flex;
+      flex-direction: column;
+      font-weight: 400;
+      font-size: 20px;
+      align-items: center;
+
     }
-    }
+    
+    
     
     `;
     headerEl.innerHTML = `
@@ -108,6 +119,11 @@ class CustomHeader extends HTMLElement {
       <a class="user-data">Mis Datos</a>
       <a class="user-reports">Mis Mascotas Reportadas</a>
       <a class="report-pet">Reportar Mascota</a>
+      <div class="info-container">
+      <p class="email">${state.getUserEmail()}</p>
+      <a class="log-out">Cerrar sesion</a>
+      </div>
+
   </nav>
     </div>
     `;

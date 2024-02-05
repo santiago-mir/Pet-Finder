@@ -13,6 +13,7 @@ const state = {
       token: "",
       userReports: "",
     },
+    petOwnerEmail: "",
     reportId: "",
     reportCreated: false,
     updatedReportFlag: false,
@@ -27,10 +28,22 @@ const state = {
     for (const cb of this.listeners) {
       cb();
     }
+    localStorage.setItem("actual-state", JSON.stringify(newState));
     console.log(this.data);
   },
   suscribe(callback: (any) => any) {
     this.listeners.push(callback);
+  },
+  init() {
+    let localData;
+    const storageData = localStorage.getItem("actual-state");
+    if (storageData) {
+      localData = storageData;
+      this.setState(JSON.parse(localData!));
+    } else {
+      localData = this.getState();
+      this.setState(localData);
+    }
   },
   setUserLocation(lat: number, lng: number) {
     // obtengo la ciudad/localidad del user
@@ -262,6 +275,21 @@ const state = {
         state.setUserReports(res);
       });
   },
+  getUserData(userId: string) {
+    fetch(API_BASE_URL + "/user/:" + userId, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+        authorization: "bearer " + state.getToken(),
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        state.setPetOwnerEmail(res.email);
+      });
+  },
   setUserData(name: string, email: string, city?: string, token?: string) {
     const currentState = this.getState();
     currentState.userData.name = name;
@@ -297,6 +325,11 @@ const state = {
   setUpdatedReportFlas() {
     const currentState = this.getState();
     currentState.updatedReportFlag = true;
+    this.setState(currentState);
+  },
+  setPetOwnerEmail(ownerEmail) {
+    const currentState = this.getState();
+    currentState.petOwnerEmail = ownerEmail;
     this.setState(currentState);
   },
   resetReportFlag() {
@@ -340,6 +373,14 @@ const state = {
   getUpdatedRecordFlag() {
     const currentFlag = this.getState().updatedReportFlag;
     return currentFlag;
+  },
+  getUserEmail() {
+    const currentEmail = this.getState().userData.email;
+    return currentEmail;
+  },
+  getPetOwnerEmail() {
+    const currentEmail = this.getState().petOwnerEmail;
+    return currentEmail;
   },
 };
 

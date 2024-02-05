@@ -8,6 +8,7 @@ import { authMiddleware } from "./utilities";
 import { AuthController } from "./controllers/auth-controller";
 import { UserController } from "./controllers/user-controller";
 import { LostPetController } from "./controllers/lost-pets-controller";
+import { User } from "./models/user";
 const port = process.env.BACK_PORT;
 const SECRET_JWT = process.env.SECRET;
 const app = express();
@@ -107,6 +108,15 @@ app.get("/user-reports", authMiddleware, async (req, res) => {
     const userId = req["._user"].id;
     const reportsFound = await LostPetController.getAllReports(userId);
     res.json(reportsFound);
+  } catch (err) {
+    res.status(404).json({ error: err });
+  }
+});
+app.get("/user/:id", authMiddleware, async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const userFound = await UserController.getOneUser(userId);
+    res.json(userFound);
   } catch (err) {
     res.status(404).json({ error: err });
   }
