@@ -15,6 +15,7 @@ const SECRET_JWT = process.env.SECRET;
 const app = express();
 app.use(cors());
 app.use(express.json({ limit: "50mb" }));
+app.use(express.static(path.join(__dirname, "../dist")));
 
 // sign-up
 
@@ -138,7 +139,6 @@ app.get("/user/:id", authMiddleware, async (req, res) => {
     res.status(404).json({ error: err });
   }
 });
-app.use(express.static(path.join(__dirname, "../dist")));
 
 app.get("*", (req, res) => {
   const route = path.resolve(__dirname, "../dist/index.html");
