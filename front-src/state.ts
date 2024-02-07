@@ -141,7 +141,12 @@ const state = {
         state.setUserData(res.firstName, res.email, res.city);
       });
   },
-  createReport(petName: string, imgURL: string, lat: number, lng: number) {
+  createLostPetReport(
+    petName: string,
+    imgURL: string,
+    lat: number,
+    lng: number
+  ) {
     // obtengo el nombre de la ciudad/localidad llamando a la api de mapbox
     fetch(
       "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
@@ -238,6 +243,34 @@ const state = {
           });
       });
   },
+  createSeenPetReport(
+    information: string,
+    reporterPhone: number,
+    reporterName: string,
+    petName: string,
+    ownerId: string
+  ) {
+    fetch(API_BASE_URL + "/report-seen-pet", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: "bearer " + state.getToken(),
+      },
+      body: JSON.stringify({
+        information,
+        reporterPhone,
+        reporterName,
+        petName,
+        ownerId,
+      }),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        console.log(res);
+      });
+  },
   getLostPetsAroundLatLng() {
     fetch(
       API_BASE_URL +
@@ -276,7 +309,7 @@ const state = {
       });
   },
   getUserData(userId: string) {
-    fetch(API_BASE_URL + "/user/:" + userId, {
+    fetch(API_BASE_URL + "/user/" + userId, {
       method: "GET",
       headers: {
         "Content-type": "application/json",

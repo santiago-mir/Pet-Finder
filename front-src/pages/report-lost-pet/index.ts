@@ -22,7 +22,7 @@ class ReportPet extends HTMLElement {
     formEl?.addEventListener("submit", (event) => {
       event.preventDefault();
       let target = event.target as any;
-      state.createReport(
+      state.createLostPetReport(
         target.name.value,
         dataURL,
         locationData.lat,

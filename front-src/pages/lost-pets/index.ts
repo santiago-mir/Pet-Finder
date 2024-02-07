@@ -1,6 +1,5 @@
 import { state } from "../../state.ts";
 import { Router } from "@vaadin/router";
-import { sendEmail } from "../../../lib/resend.ts";
 
 class LostPets extends HTMLElement {
   connectedCallback() {
@@ -69,9 +68,6 @@ class LostPets extends HTMLElement {
     ownerId: string,
     blurredContainer: Element
   ) {
-    // gets pet owner data
-    state.getUserData(ownerId);
-    //
     formContainer?.classList.remove("form-container");
     formContainer?.classList.add("report-seen-pet");
     const petTitleEl = formContainer?.querySelector(".pet-name");
@@ -81,8 +77,14 @@ class LostPets extends HTMLElement {
     formEl?.addEventListener("submit", (ev) => {
       ev.preventDefault();
       let target = ev.target as any;
-
-      sendEmail(target.information.value, state.getPetOwnerEmail(), petName);
+      // crea nuevo report
+      state.createSeenPetReport(
+        target.information.value,
+        target.phone.value,
+        target.name.value,
+        petName,
+        ownerId
+      );
       // restaruar background
       blurredContainer.classList.remove("blur");
       blurredContainer.classList.add("aux-container");

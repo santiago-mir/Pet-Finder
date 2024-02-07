@@ -8,6 +8,7 @@ import { authMiddleware } from "./utilities";
 import { AuthController } from "./controllers/auth-controller";
 import { UserController } from "./controllers/user-controller";
 import { LostPetController } from "./controllers/lost-pets-controller";
+import { ReportSeenPetController } from "./controllers/report-seen-pet-controller";
 import { User } from "./models/user";
 const port = process.env.BACK_PORT;
 const SECRET_JWT = process.env.SECRET;
@@ -76,6 +77,22 @@ app.put("/edit-report", authMiddleware, async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(404).json({ err });
+  }
+});
+app.post("/report-seen-pet", authMiddleware, async (req, res) => {
+  try {
+    const { information, reporterPhone, reporterName, petName, ownerId } =
+      req.body;
+    const reportCreated = await ReportSeenPetController.createReport(
+      information,
+      reporterPhone,
+      reporterName,
+      petName,
+      ownerId
+    );
+    res.json(reportCreated);
+  } catch (err) {
+    res.status(404).json({ error: err });
   }
 });
 app.put("/menu/update-data", authMiddleware, async (req, res) => {
