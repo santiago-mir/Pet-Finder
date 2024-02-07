@@ -142,6 +142,7 @@ app.use(express.static(path.join(__dirname, "../dist")));
 
 app.get("*", (req, res) => {
   const route = path.resolve(__dirname, "../dist/index.html");
+  console.log(route);
   res.sendFile(route);
 });
 
