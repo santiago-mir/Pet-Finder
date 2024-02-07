@@ -9,7 +9,7 @@
     "build:back": "tsc",
     "build:front": "parcel build ./front-src/index.html",
     "build": "npm run build:back && npm run build:front",
-    "start": "node ./back-dist/index.js"
+    "start": "node ./back-dist/back-src/index.js"
   },
   "dependencies": {
     "@mapbox/search-js-web": "^1.0.0-beta.18",
