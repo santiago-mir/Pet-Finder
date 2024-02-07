@@ -1,5 +1,4 @@
 import * as express from "express";
-import "./dev";
 import { sequelize } from "./db";
 import * as cors from "cors";
 import * as path from "path";
