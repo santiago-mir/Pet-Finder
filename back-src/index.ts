@@ -8,7 +8,6 @@ import { AuthController } from "./controllers/auth-controller";
 import { UserController } from "./controllers/user-controller";
 import { LostPetController } from "./controllers/lost-pets-controller";
 import { ReportSeenPetController } from "./controllers/report-seen-pet-controller";
-import { User } from "./models/user";
 import "dotenv/config";
 const port = 3002;
 const SECRET_JWT = process.env.SECRET;

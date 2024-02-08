@@ -1,6 +1,7 @@
 import { Pet } from "../models/models";
 import { cloudinary } from "../../lib/cloudinary";
 import { index } from "../../lib/algolia";
+import "dotenv/config";
 class LostPetController {
   public static async createReport(
     petName: string,

@@ -1,5 +1,6 @@
 import * as jwt from "jsonwebtoken";
 import * as crypto from "crypto";
+import "dotenv/config";
 const JWT_SECRET = process.env.SECRET;
 
 function authMiddleware(req, res, next) {
@@ -9,6 +10,7 @@ function authMiddleware(req, res, next) {
     req["._user"] = data;
     next();
   } catch (error) {
+    console.log(error);
     res.status(401).json({ error: "token invalido" });
   }
 }

@@ -13,4 +13,5 @@ import "./pages/update-data";
 import "./pages/update-password";
 import "./router";
 import { state } from "./state";
+import "dotenv/config";
 state.init();

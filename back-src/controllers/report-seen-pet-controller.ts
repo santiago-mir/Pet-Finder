@@ -1,6 +1,6 @@
 import { Report } from "../models/models";
 import { User } from "../models/models";
-import { resend } from "../../lib/resend";
+import { sendEmail } from "../../lib/nodemailer";
 
 class ReportSeenPetController {
   public static async createReport(
@@ -9,7 +9,7 @@ class ReportSeenPetController {
     reporterName: string,
     petName: string,
     ownerId: string
-  ) {
+  ): Promise<Report> {
     if (
       !information ||
       !reporterPhone ||
@@ -19,29 +19,16 @@ class ReportSeenPetController {
     ) {
       throw new Error("faltan completar campos en el formulario");
     } else {
-      //   const newReport = await Report.create({
-      //     petName,
-      //     reporterName,
-      //     reporterPhone,
-      //     description: information,
-      //   });
-      //   const emailFound = (await User.findByPk(ownerId)).get("email");
+      const newReport = await Report.create({
+        petName,
+        reporterName,
+        reporterPhone,
+        description: information,
+      });
+      const emailFound = (await User.findByPk(ownerId)).get("email").toString();
       // send email to owner
-      (async function () {
-        const { data, error } = await resend.emails.send({
-          from: "Acme <onboarding@resend.dev>",
-          to: ["san_chan97@hotmail.com"],
-          subject: "Report de mascota",
-          html: "<strong>Insertar texto</strong>",
-        });
-
-        if (error) {
-          return console.error({ error });
-        }
-
-        console.log({ data });
-      })();
-      return true;
+      sendEmail(emailFound, petName, reporterPhone, reporterName, information);
+      return newReport;
     }
   }
 }
