@@ -169,6 +169,11 @@ body {
   text-align: center;
 }
 
+.button:hover {
+  background-color: black;
+  color: white;
+}
+
 .report-button {
   width: 90px;
   height: 70px;

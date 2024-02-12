@@ -18,7 +18,6 @@ app.use(express.json({ limit: "50mb" }));
 // sign-up
 
 app.post("/auth", async (req, res) => {
-  const { password, confirmPassword } = req.body;
   try {
     const { name, email, password, confirmPassword } = req.body;
     if (password != confirmPassword) {
@@ -100,6 +99,20 @@ app.put("/menu/update-data", authMiddleware, async (req, res) => {
   await UserController.updateUserData(userId, name, city);
   const updatedUser = await UserController.getOneUser(userId);
   res.json(updatedUser);
+});
+app.put("/menu/update-password", authMiddleware, async (req, res) => {
+  try {
+    const { password, confirmPassword } = req.body;
+    const userId = req["._user"].id;
+    if (password != confirmPassword) {
+      res.status(400).json({ error: "las contraseñas no coinciden" });
+    } else {
+      const updatedAuth = await AuthController.updatePassword(userId, password);
+      res.json({ updatedAuth });
+    }
+  } catch (err) {
+    res.status(400).json({ error: err });
+  }
 });
 app.get("/user/:id", async (req, res) => {
   try {

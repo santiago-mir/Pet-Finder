@@ -15,6 +15,17 @@ class Login extends HTMLElement {
         Router.go("/home");
       });
     });
+    const showPassword = document.querySelector(".checkbox");
+    const password = document.querySelector(".password");
+    showPassword?.addEventListener("click", (ev) => {
+      let showPassCast = showPassword as any; // cast
+      let passCast = password as any; // cast
+      if (showPassCast.checked) {
+        passCast.type = "text";
+      } else {
+        passCast.type = "password";
+      }
+    });
   }
   render() {
     const loginURL = require("url:../../assets/login.png");
@@ -30,7 +41,8 @@ class Login extends HTMLElement {
     </label>
     <label class="label">
     Contraseña
-    <input class="input" name="password" type="text" />
+    <input class="input password" name="password" type="password" />
+    <span>Mostrar contraseña <input class="checkbox" type="checkbox"/></span>
     </label>
     <button class="button">Inicia sesion</button>
     </form>

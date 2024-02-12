@@ -1,3 +1,4 @@
+import { setUncaughtExceptionCaptureCallback } from "process";
 import { state } from "../../state";
 import { Router } from "@vaadin/router";
 
@@ -53,11 +54,28 @@ class CustomHeader extends HTMLElement {
         Router.go("/login");
       }
     });
+    // log-in or out option
+    const logInOrOutOptionEl = this.shadow.querySelector(".log");
+    logInOrOutOptionEl?.addEventListener("click", (e) => {
+      if (state.getToken()) {
+        state.clearStorage();
+      } else {
+        Router.go("/login");
+      }
+    });
+
     // home img
     const mapImgEl = this.shadow.querySelector(".home-img");
     mapImgEl?.addEventListener("click", (e) => {
       Router.go("/home");
     });
+  }
+  setText() {
+    if (state.getToken()) {
+      return "Cerrar sesion";
+    } else {
+      return "Inicia sesion";
+    }
   }
   render() {
     const headerEl = document.createElement("header");
@@ -106,6 +124,10 @@ class CustomHeader extends HTMLElement {
       align-items: center;
 
     }
+
+    .link:hover{
+      color: black;
+    }
     
     
     
@@ -116,12 +138,12 @@ class CustomHeader extends HTMLElement {
     <div class="menu-mobile__conteiner">
     <img class="menu-mobile__close-button" src="${closeURL}" alt="close-button"/>
     <nav class="options">
-      <a class="user-data">Mis Datos</a>
-      <a class="user-reports">Mis Mascotas Reportadas</a>
-      <a class="report-pet">Reportar Mascota</a>
+      <a class="link user-data">Mis Datos</a>
+      <a class="link user-reports">Mis Mascotas Reportadas</a>
+      <a class="link report-pet">Reportar Mascota</a>
       <div class="info-container">
       <p class="email">${state.getUserEmail()}</p>
-      <a class="log-out">Cerrar sesion</a>
+      <a class="link log">${this.setText()}</a>
       </div>
 
   </nav>

@@ -37,6 +37,7 @@ const state = {
   init() {
     let localData;
     const storageData = localStorage.getItem("actual-state");
+    console.log(storageData);
     if (storageData) {
       localData = storageData;
       this.setState(JSON.parse(localData!));
@@ -44,6 +45,10 @@ const state = {
       localData = this.getState();
       this.setState(localData);
     }
+  },
+  clearStorage() {
+    localStorage.removeItem("actual-state");
+    location.reload();
   },
   setUserLocation(lat: number, lng: number) {
     // obtengo la ciudad/localidad del user
@@ -139,6 +144,26 @@ const state = {
       .then((res) => {
         console.log(res);
         state.setUserData(res.firstName, res.email, res.city);
+      });
+  },
+
+  updateUserPassword(password: string, confirmPassword: string) {
+    fetch(API_BASE_URL + "/menu/update-password", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: "bearer " + state.getToken(),
+      },
+      body: JSON.stringify({
+        password,
+        confirmPassword,
+      }),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        state.signInUser(state.getUserEmail(), password);
       });
   },
   createLostPetReport(

@@ -17,6 +17,21 @@ class AuthController {
       return newAuth;
     }
   }
+  public static async updatePassword(userId: string, password: string) {
+    if (!password || !userId) {
+      throw new Error("password o user invalidos");
+    } else {
+      const updatedAuth = await Auth.update(
+        { password: getSHA256ofString(password) },
+        {
+          where: {
+            user_id: userId,
+          },
+        }
+      );
+      return updatedAuth;
+    }
+  }
   public static async getToken(email: string, password: string) {
     if (!email || !password) {
       throw new Error("auth controller: email o password invalidos");

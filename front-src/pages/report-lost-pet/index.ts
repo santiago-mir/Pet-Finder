@@ -5,6 +5,9 @@ import { initMap } from "../../../lib/mapbox.ts";
 
 class ReportPet extends HTMLElement {
   connectedCallback() {
+    if (!state.getToken()) {
+      Router.go("/home");
+    }
     this.render();
   }
   addListeners() {

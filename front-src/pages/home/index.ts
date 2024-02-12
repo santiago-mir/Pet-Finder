@@ -1,4 +1,3 @@
-import { resend } from "../../../lib/resend.ts";
 import { state } from "../../state.ts";
 import { Router } from "@vaadin/router";
 

@@ -17,6 +17,21 @@ class Signup extends HTMLElement {
         target.confirmation.value
       );
     });
+    const showPassword = document.querySelector(".checkbox");
+    const password = document.querySelectorAll(".password");
+    showPassword?.addEventListener("click", (ev) => {
+      let showPassCast = showPassword as any; // cast
+      let passCast = password as any; // cast
+      if (showPassCast.checked) {
+        for (let element of passCast) {
+          element.type = "text";
+        }
+      } else {
+        for (let element of passCast) {
+          element.type = "password";
+        }
+      }
+    });
     state.suscribe(() => {
       Router.go("/home");
     });
@@ -38,11 +53,12 @@ class Signup extends HTMLElement {
     </label>
     <label class="label">
     Contraseña
-    <input class="input" name="password" type="text" />
+    <input class="input password" name="password" type="password" />
     </label>
     <label class="label">
     Confirmar contraseña
-    <input class="input" name="confirmation" type="text" />
+    <input class="input password" name="confirmation" type="password" />
+    <span>Mostrar contraseña <input class="checkbox" type="checkbox"/></span>
     </label>
     <button class="button">Registrarme</button>
     </form>
