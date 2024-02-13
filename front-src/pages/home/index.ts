@@ -3,7 +3,12 @@ import { Router } from "@vaadin/router";
 
 class Home extends HTMLElement {
   connectedCallback() {
-    this.render();
+    if (state.getToken()) {
+      this.uptadePage();
+    } else {
+      this.render();
+      console.log("el token no esta activo");
+    }
   }
   getPetsURL() {
     const petsImgsURL = require("url:../../assets/images.png");
@@ -32,13 +37,13 @@ class Home extends HTMLElement {
     reportButton?.addEventListener("click", (event) => {
       Router.go("/report-pet");
     });
+    //log-out button
+    const logOutButtonEl = this.querySelector(".logout");
+    logOutButtonEl?.addEventListener("click", (event) => {
+      state.clearStorage();
+    });
   }
   addListeners() {
-    if (state.getToken()) {
-      this.uptadePage();
-    } else {
-      console.log("el token no esta activo");
-    }
     // login button
     const logInButtonEl = this.querySelector(".login");
     logInButtonEl?.addEventListener("click", () => {
@@ -50,6 +55,7 @@ class Home extends HTMLElement {
       if (!navigator.geolocation) {
         console.log("hubo un error");
       } else {
+        console.log("entre desde el listener normal");
         navigator.geolocation.getCurrentPosition(this.success);
         state.suscribe(() => {
           Router.go("/lost-pets");
@@ -74,7 +80,7 @@ class Home extends HTMLElement {
     <custom-header></custom-header>
     <div class="main-container">
     <img src="${this.getPetsURL()}"/>
-    <h1 class="title">Bienvenido ${state.getUserName()}</h1>
+    <h1 class="title">Hola ${state.getUserName()}</h1>
     <h2 class="title">Pet Finder App</h2>
     <p class="text">Encontrá y reportá mascotas perdidas cerca de tu ubicación</p>
     <button class="location button">Dar mi Ubicacion Actual </button>

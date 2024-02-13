@@ -29,7 +29,7 @@ const state = {
       cb();
     }
     localStorage.setItem("actual-state", JSON.stringify(newState));
-    console.log(this.data);
+    console.log("se setio el state");
   },
   suscribe(callback: (any) => any) {
     this.listeners.push(callback);
@@ -37,7 +37,6 @@ const state = {
   init() {
     let localData;
     const storageData = localStorage.getItem("actual-state");
-    console.log(storageData);
     if (storageData) {
       localData = storageData;
       this.setState(JSON.parse(localData!));
@@ -71,11 +70,7 @@ const state = {
       })
       .then((res) => {
         let cityName = res.features[2].text; // nombre de ciudad/localidad
-        const currentState = this.getState();
-        currentState.userData._geoloc.lat = lat;
-        currentState.userData._geoloc.lng = lng;
-        currentState.userData.city = cityName;
-        this.setState(currentState);
+        state.setUserGeoData(cityName, lat, lng);
       });
   },
   signInUser(email: string, password: string) {
@@ -383,6 +378,13 @@ const state = {
   setUpdatedReportFlas() {
     const currentState = this.getState();
     currentState.updatedReportFlag = true;
+    this.setState(currentState);
+  },
+  setUserGeoData(cityName: string, lat, lng) {
+    const currentState = this.getState();
+    currentState.userData._geoloc.lat = lat;
+    currentState.userData._geoloc.lng = lng;
+    currentState.userData.city = cityName;
     this.setState(currentState);
   },
   setPetOwnerEmail(ownerEmail) {

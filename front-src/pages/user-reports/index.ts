@@ -11,10 +11,28 @@ class UserReports extends HTMLElement {
   displayReports() {
     const reportsContainerEl = this.querySelector(".pets-container");
     const userReports = state.getUserReports();
-    // create all lost pets cards
-    this.createCards(reportsContainerEl, userReports);
+    if (userReports.length == 0) {
+      const emptyPageURL = require("url:../../assets/empty.png");
+      this.createImage(reportsContainerEl!, emptyPageURL);
+    } else {
+      // create all lost pets cards
+      this.createCards(reportsContainerEl, userReports);
+    }
     // go back home bubbont
     this.addButton(reportsContainerEl!);
+  }
+  createImage(container: Element, imgURL) {
+    const imgEl = document.createElement("img");
+    imgEl.src = imgURL;
+    container.appendChild(imgEl);
+  }
+  getText() {
+    const userReports = state.getUserReports();
+    if (userReports.length == 0) {
+      return "No has reportado ninguna mascota aun";
+    } else {
+      return "Tus mascotas reportadas";
+    }
   }
   createCards(container, reportsArr) {
     for (const report of reportsArr) {
@@ -50,8 +68,10 @@ class UserReports extends HTMLElement {
   render() {
     this.innerHTML = `
         <custom-header></custom-header>
-        <h1>Tus mascotas reportadas</h1>
+        <div class="user-report-container">
+        <h1 class="text">${this.getText()}</h1>
         <div class="pets-container"></div>
+        </div>
     `;
     this.addListeners();
   }

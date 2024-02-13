@@ -8,7 +8,6 @@ class LostPets extends HTMLElement {
   addListeners() {
     // obtiene los pets segun la ubicacion del usuario
     state.getLostPetsAroundLatLng();
-
     state.suscribe(() => {
       this.displayPets();
     });
@@ -19,39 +18,48 @@ class LostPets extends HTMLElement {
     // create all lost pets cards
     this.createCards(lostPetsContainerEl, lostPets);
   }
+  getImgURL() {
+    const imgURL = require("url:../../assets/empty.png");
+    return imgURL;
+  }
   createCards(container, petArray) {
-    for (const pet of petArray) {
-      const newCard = document.createElement("div");
-      newCard.innerHTML = `
-      <img class="card-image" src="${pet.imgURL}">
-      <div class="card-info-container">
-        <div class="text-container">
-          <h3 class="text">${pet.name}</h3>
-          <h5 class="text">${pet.city}</h5>
+    if (petArray.length == 0) {
+      const imgEl = this.querySelector(".hidden");
+      imgEl?.classList.remove("hidden");
+    } else {
+      for (const pet of petArray) {
+        const newCard = document.createElement("div");
+        newCard.innerHTML = `
+        <img class="card-image" src="${pet.imgURL}">
+        <div class="card-info-container">
+          <div class="text-container">
+            <h3 class="text">${pet.name}</h3>
+            <h5 class="text">${pet.city}</h5>
+          </div>
+          <button class="report-button">Reportar</button>
         </div>
-        <button class="report-button">Reportar</button>
-      </div>
-      `;
-      // boton para reportar que el usuario vio a una mascota perdida
-      const reportPetButtonEl = newCard.querySelector(".report-button");
-      reportPetButtonEl?.addEventListener("click", (ev) => {
-        // aux container para blurear el background
-        const auxContainerEl = this.querySelector(".aux-container");
-        auxContainerEl?.classList.add("blur");
-        // mostrar form
-        const formElContainer = this.querySelector(".form-container");
-        this.displayForm(
-          formElContainer!,
-          pet.name,
-          pet.ownerId,
-          auxContainerEl!
-        );
-      });
-      newCard.classList.add("card-container");
-      container?.appendChild(newCard);
+        `;
+        // boton para reportar que el usuario vio a una mascota perdida
+        const reportPetButtonEl = newCard.querySelector(".report-button");
+        reportPetButtonEl?.addEventListener("click", (ev) => {
+          // aux container para blurear el background
+          const auxContainerEl = this.querySelector(".aux-container");
+          auxContainerEl?.classList.add("blur");
+          // mostrar form
+          const formElContainer = this.querySelector(".form-container");
+          this.displayForm(
+            formElContainer!,
+            pet.name,
+            pet.ownerId,
+            auxContainerEl!
+          );
+        });
+        newCard.classList.add("card-container");
+        container?.appendChild(newCard);
+      }
     }
-    // go back home button
-    this.addButton(container!);
+
+    this.addButton(container);
   }
   addButton(container: Element) {
     const backButtonEl = document.createElement("button");
@@ -103,13 +111,22 @@ class LostPets extends HTMLElement {
       formContainer.classList.add("form-container");
     });
   }
+  getText() {
+    if (state.getLostPets().length == 0) {
+      return "No hay mascotas perdidas por tu zona";
+    } else {
+      return `Mascotas perdidas cerca de ${state.getUserCity()}`;
+    }
+  }
   render() {
     const imgURL = require("url:../../assets/icon.png");
     this.innerHTML = `
     <div class="aux-container">
     <custom-header></custom-header>
-    <h1>Mascotas perdidas cerca de ${state.getUserCity()}</h1>
-    <div class="pets-container"></div>
+    <h1 class="text">${this.getText()}</h1>
+    <div class="pets-container">
+    <img class="hidden" src="${this.getImgURL()}"></img>
+    </div>
     </div>
     <div class="form-container">
     <img class="close" src="${imgURL}">
