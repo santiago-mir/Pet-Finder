@@ -40,8 +40,8 @@ class Signup extends HTMLElement {
     this.innerHTML = `
     <custom-header></custom-header>
     <div class="login-container">
-    <h1>Registrate</h1>
-    <p>Ingresa los siguientes datos para realizar el registro</p>
+    <h1 class="title">Registrate</h1>
+    <p class="text">Ingresa los siguientes datos para realizar el registro</p>
     <form class="form">
     <label class="label">
     Nombre
@@ -62,7 +62,7 @@ class Signup extends HTMLElement {
     </label>
     <button class="button">Registrarme</button>
     </form>
-    <p>¿Ya tenes cuenta? <a href="./login">Inicia Sesion</a> </p>
+    <p class="text">¿Ya tenes cuenta? <a href="./login">Inicia Sesion</a> </p>
     </div>
     `;
     this.addListeners();
