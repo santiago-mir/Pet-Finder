@@ -94,14 +94,15 @@ class CustomHeader extends HTMLElement {
      }
      .menu-mobile__conteiner {
       display: none;
-      position: absolute;
+      position: fixed;
       background-color: grey;
-      height: 100vh;
-      width: 100%;
-      top: 0;
+      height: 70vh;
+      width: 70vh;
+      top: 20px;
+      padding: 30px;
+      border-radius: 20px;
       bottom: 0;
-      left: 0;
-      right: 0;
+      right: 0px;
   }
     .menu-mobile__close-button{
       justify-self: end;

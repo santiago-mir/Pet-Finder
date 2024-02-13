@@ -123,7 +123,7 @@ class LostPets extends HTMLElement {
     this.innerHTML = `
     <div class="aux-container">
     <custom-header></custom-header>
-    <h1 class="text">${this.getText()}</h1>
+    <h1 class="text">Mascotas perdidas cerca de ${state.getUserCity()}</h1>
     <div class="pets-container">
     <img class="hidden" src="${this.getImgURL()}"></img>
     </div>
