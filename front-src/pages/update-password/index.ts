@@ -3,6 +3,9 @@ import { Router } from "@vaadin/router";
 
 class UpdatePassword extends HTMLElement {
   connectedCallback() {
+    if (!state.getToken()) {
+      Router.go("/home");
+    }
     this.render();
   }
   addListeners() {
@@ -36,7 +39,7 @@ class UpdatePassword extends HTMLElement {
     this.innerHTML = `
     <custom-header></custom-header>
     <div class="login-container">
-    <h1>Actualiza tu Contraseña</h1>
+    <h1 class="text">Actualiza tu Contraseña</h1>
     <form class="form">
     <label class="label">
     Nueva Contraseña

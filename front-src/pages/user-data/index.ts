@@ -1,7 +1,11 @@
 import { Router } from "@vaadin/router";
+import { state } from "../../state";
 
 class UserData extends HTMLElement {
   connectedCallback() {
+    if (!state.getToken()) {
+      Router.go("/home");
+    }
     this.render();
   }
   addListeners() {

@@ -96,6 +96,7 @@ class CustomHeader extends HTMLElement {
       display: none;
       position: fixed;
       background-color: grey;
+      z-index: 3;
       height: 70vh;
       width: 70vh;
       top: 20px;

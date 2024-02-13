@@ -258,6 +258,7 @@ const state = {
             if (res.error) {
               console.log("token invalido, inicia sesion");
             } else {
+              state.setUpdatedReportFlag();
               state.setReportStatus();
             }
           });
@@ -375,7 +376,7 @@ const state = {
     currentState.reportId = reportId;
     this.setState(currentState);
   },
-  setUpdatedReportFlas() {
+  setUpdatedReportFlag() {
     const currentState = this.getState();
     currentState.updatedReportFlag = true;
     this.setState(currentState);

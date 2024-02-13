@@ -3,6 +3,9 @@ import { Router } from "@vaadin/router";
 
 class UpdateData extends HTMLElement {
   connectedCallback() {
+    if (!state.getToken()) {
+      Router.go("/home");
+    }
     this.render();
   }
   addListeners() {
@@ -18,7 +21,7 @@ class UpdateData extends HTMLElement {
     this.innerHTML = `
     <custom-header></custom-header>
     <div class="login-container">
-    <h1>Tus Datos Personales</h1>
+    <h1 class="text">Tus Datos Personales</h1>
     <form class="form">
     <label class="label">
     Nombre

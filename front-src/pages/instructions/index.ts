@@ -3,6 +3,9 @@ import { Router } from "@vaadin/router";
 
 class Instructions extends HTMLElement {
   connectedCallback() {
+    if (!state.getToken()) {
+      Router.go("/home");
+    }
     this.render();
   }
   addListeners() {

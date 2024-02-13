@@ -3,6 +3,9 @@ import { state } from "../../state";
 
 class UserReports extends HTMLElement {
   connectedCallback() {
+    if (!state.getToken()) {
+      Router.go("/home");
+    }
     this.render();
   }
   addListeners() {
