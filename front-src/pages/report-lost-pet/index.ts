@@ -18,6 +18,8 @@ class ReportPet extends HTMLElement {
       autoProcessQueue: false,
     });
     myDropzone.on("thumbnail", (file) => {
+      const textEl = this.querySelector(".drop-text");
+      textEl!.textContent = "";
       dataURL = file.dataURL;
     });
     const locationData = initMap();
@@ -41,15 +43,15 @@ class ReportPet extends HTMLElement {
     <script id="search-js" defer="" src="https://api.mapbox.com/search-js/v1.0.0-beta.18/web.js"></script>
     <custom-header></custom-header>
     <div class="report-container">
-    <h1>Repotar Mascota</h1>
-    <p>Ingresá la siguiente información para realizar el reporte de la mascota</p>
+    <h1 class="title">Repotar Mascota</h1>
+    <p class="text">Ingresá la siguiente información para realizar el reporte de la mascota</p>
     <form class="form">
     <label class="label">
     Nombre
     <input class="input" name="name" type="text" />
     </label>
-    <div id="dropzone">Subi una imagen de tu mascota</div>
-    <h3>Donde viste a tu mascota por ultima vez?</h3>
+    <div id="dropzone"><p class="drop-text">Subi una imagen de tu mascota</p></div>
+    <h3 class="text" >Donde viste a tu mascota por ultima vez?</h3>
     <div id="map" style="width: 400px; height: 400px"></div>
     <button type="submit" class="button"> Reportar Mascota </button>
     <button class="button"> Cancelar </button>

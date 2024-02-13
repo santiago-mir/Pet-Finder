@@ -54,11 +54,13 @@ body {
   margin: 0 auto;
   align-items: center;
   padding: 15px;
+  gap: 20px;
 }
 
 .pets-container {
   display: flex;
   max-width: 500px;
+  padding: 20px;
   gap: 40px;
   margin: 0 auto;
   flex-direction: column;
@@ -188,6 +190,10 @@ body {
   align-self: center;
   font-family: "POPPINS";
   font-size: 18px;
+}
+.report-button:hover {
+  background-color: black;
+  color: white;
 }
 
 .text,
