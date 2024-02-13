@@ -32,8 +32,8 @@ class Login extends HTMLElement {
     this.innerHTML = `
     <custom-header></custom-header>
     <div class="login-container">
-    <h1>Iniciar Sesion</h1>
-    <p>Ingresa tu mail y contraseña para iniciar sesion</p>
+    <h1 class="title">Iniciar Sesion</h1>
+    <p class="text">Ingresa tu mail y contraseña para iniciar sesion</p>
     <form class="form">
     <label class="label">
     Email
@@ -46,7 +46,7 @@ class Login extends HTMLElement {
     </label>
     <button class="button">Inicia sesion</button>
     </form>
-    <p>¿Aun no tenes cuenta? <a href="./signup">Registrate</a> </p>
+    <p class="text">¿Aun no tenes cuenta? <a href="./signup">Registrate</a> </p>
     </div>
     `;
     this.addListeners();

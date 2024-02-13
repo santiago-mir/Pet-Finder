@@ -190,8 +190,10 @@ body {
   font-size: 18px;
 }
 
-.text {
+.text,
+.label {
   font-weight: 400;
+  font-family: "Poppins", sans-serif;
 }
 
 #dropzone {
