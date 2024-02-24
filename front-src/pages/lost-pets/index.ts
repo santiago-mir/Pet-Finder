@@ -111,13 +111,6 @@ class LostPets extends HTMLElement {
       formContainer.classList.add("form-container");
     });
   }
-  getText() {
-    if (state.getLostPets().length == 0) {
-      return "No hay mascotas perdidas por tu zona";
-    } else {
-      return `Mascotas perdidas cerca de ${state.getUserCity()}`;
-    }
-  }
   render() {
     const imgURL = require("url:../../assets/icon.png");
     this.innerHTML = `

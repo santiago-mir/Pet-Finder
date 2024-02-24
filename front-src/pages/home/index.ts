@@ -55,7 +55,6 @@ class Home extends HTMLElement {
       if (!navigator.geolocation) {
         console.log("hubo un error");
       } else {
-        console.log("entre desde el listener normal");
         navigator.geolocation.getCurrentPosition(this.success);
         state.suscribe(() => {
           Router.go("/lost-pets");
