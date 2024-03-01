@@ -77,7 +77,7 @@ app.put("/edit-report", authMiddleware, async (req, res) => {
     res.status(404).json({ err });
   }
 });
-app.post("/report-seen-pet", authMiddleware, async (req, res) => {
+app.post("/report-seen-pet", async (req, res) => {
   try {
     const { information, reporterPhone, reporterName, petName, ownerId } =
       req.body;
@@ -137,15 +137,6 @@ app.get("/user-reports", authMiddleware, async (req, res) => {
     const userId = req["._user"].id;
     const reportsFound = await LostPetController.getAllReports(userId);
     res.json(reportsFound);
-  } catch (err) {
-    res.status(404).json({ error: err });
-  }
-});
-app.get("/user/:id", authMiddleware, async (req, res) => {
-  try {
-    const userId = req.params.id;
-    const userFound = await UserController.getOneUser(userId);
-    res.json(userFound);
   } catch (err) {
     res.status(404).json({ error: err });
   }
