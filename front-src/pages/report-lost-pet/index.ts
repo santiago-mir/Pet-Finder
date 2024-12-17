@@ -43,7 +43,7 @@ class ReportPet extends HTMLElement {
     <script id="search-js" defer="" src="https://api.mapbox.com/search-js/v1.0.0-beta.18/web.js"></script>
     <custom-header></custom-header>
     <div class="report-container">
-    <h1 class="title">Repotar Mascota</h1>
+    <h1 class="title">Reportar Mascota</h1>
     <p class="text">Ingresá la siguiente información para realizar el reporte de la mascota</p>
     <form class="form">
     <label class="label">
