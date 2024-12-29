@@ -100,7 +100,7 @@ class LostPetController {
   public static async getAllPetsAround(lat: number, lng: number) {
     const { hits } = await index.search("", {
       aroundLatLng: `${lat}, ${lng}`,
-      aroundRadius: 1000000,
+      aroundRadius: 10000,
     });
     return hits;
   }
